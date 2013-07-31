@@ -1,4 +1,4 @@
-Payment system for Cototni
+Payment system for Cotonti
 
 Страница разработки: http://cmsworks.ru/catalog/modules/payments
 
