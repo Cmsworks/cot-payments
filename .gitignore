@@ -1,1 +1,4 @@
-/nbproject/private/
+# Files which should be ignored by Git
+.DS_Store
+/nbproject/
+/.git/
