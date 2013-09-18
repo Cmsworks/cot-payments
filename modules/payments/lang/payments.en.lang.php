@@ -20,7 +20,15 @@ $L['payments_mybalance'] = (isset($L['payments_mybalance'])) ? $L['payments_myba
 $L['payments_balance'] = (isset($L['payments_balance'])) ? $L['payments_balance'] : 'Balance';
 $L['payments_paytobalance'] = (isset($L['payments_paytobalance'])) ? $L['payments_paytobalance'] : 'To deposit';
 $L['payments_history'] = (isset($L['payments_history'])) ? $L['payments_history'] : 'History';
+$L['payments_payout'] = (isset($L['payments_payout'])) ? $L['payments_payout'] : 'Payout';
+$L['payments_balance_payout_error_summ'] = (isset($L['payments_balance_payout_error_summ'])) ? $L['payments_balance_payout_error_summ'] : 'Amount empty';
+$L['payments_balance_payout_list'] = (isset($L['payments_balance_payout_list'])) ? $L['payments_balance_payout_list'] : 'Requests';
+$L['payments_balance_payout_title'] = (isset($L['payments_balance_payout_title'])) ? $L['payments_balance_payout_title'] : 'Payout request';
+$L['payments_balance_payout_desc'] = (isset($L['payments_balance_payout_desc'])) ? $L['payments_balance_payout_desc'] : 'Payout';
+$L['payments_balance_payout_summ'] = (isset($L['payments_balance_payout_summ'])) ? $L['payments_balance_payout_summ'] : 'Amount';
+$L['payments_balance_payout_details'] = (isset($L['payments_balance_payout_details'])) ? $L['payments_balance_payout_details'] : 'Details';
 $L['payments_balance_billing_error_summ'] = (isset($L['payments_balance_billing_error_summ'])) ? $L['payments_balance_billing_error_summ'] : 'Amount empty';
+$L['payments_balance_payout_error_details'] = (isset($L['payments_balance_payout_error_details'])) ? $L['payments_balance_payout_error_details'] : 'Details is empty';
 $L['payments_balance_billing_desc'] = (isset($L['payments_balance_billing_desc'])) ? $L['payments_balance_billing_desc'] : 'Account funding';
 $L['payments_balance_billing_summ'] = (isset($L['payments_balance_billing_summ'])) ? $L['payments_balance_billing_summ'] : 'Enter the amount';
 

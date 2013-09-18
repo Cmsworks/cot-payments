@@ -21,7 +21,15 @@ $L['payments_mybalance'] = (isset($L['payments_mybalance'])) ? $L['payments_myba
 $L['payments_balance'] = (isset($L['payments_balance'])) ? $L['payments_balance'] : 'На счету';
 $L['payments_paytobalance'] = (isset($L['payments_paytobalance'])) ? $L['payments_paytobalance'] : 'Пополнить счет';
 $L['payments_history'] = (isset($L['payments_history'])) ? $L['payments_history'] : 'История операций';
+$L['payments_payout'] = (isset($L['payments_payout'])) ? $L['payments_payout'] : 'Вывод со счета';
+$L['payments_balance_payout_error_summ'] = (isset($L['payments_balance_payout_error_summ'])) ? $L['payments_balance_payout_error_summ'] : 'Не указана сумма';
+$L['payments_balance_payout_list'] = (isset($L['payments_balance_payout_list'])) ? $L['payments_balance_payout_list'] : 'Заявки на вывод средств со счета';
+$L['payments_balance_payout_title'] = (isset($L['payments_balance_payout_title'])) ? $L['payments_balance_payout_title'] : 'Заявка на вывод со счета';
+$L['payments_balance_payout_desc'] = (isset($L['payments_balance_payout_desc'])) ? $L['payments_balance_payout_desc'] : 'Вывод со счета по заявке';
+$L['payments_balance_payout_summ'] = (isset($L['payments_balance_payout_summ'])) ? $L['payments_balance_payout_summ'] : 'Укажите сумму';
+$L['payments_balance_payout_details'] = (isset($L['payments_balance_payout_details'])) ? $L['payments_balance_payout_details'] : 'Реквизиты счета или кошелька';
 $L['payments_balance_billing_error_summ'] = (isset($L['payments_balance_billing_error_summ'])) ? $L['payments_balance_billing_error_summ'] : 'Не указана сумма';
+$L['payments_balance_payout_error_details'] = (isset($L['payments_balance_payout_error_details'])) ? $L['payments_balance_payout_error_details'] : 'Не указаны реквизиты';
 $L['payments_balance_billing_desc'] = (isset($L['payments_balance_billing_desc'])) ? $L['payments_balance_billing_desc'] : 'Пополнение счета';
 $L['payments_balance_billing_summ'] = (isset($L['payments_balance_billing_summ'])) ? $L['payments_balance_billing_summ'] : 'Укажите сумму';
 

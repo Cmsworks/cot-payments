@@ -2,17 +2,20 @@
 
 <h2>{PHP.L.payments_history}</h2>	
 
-<div class="block button-toolbar">
-	<a class="button large<!-- IF !{PHP.id} --> special<!-- ENDIF -->" href="{PHP|cot_url('admin', 'm=payments')}">{PHP.L.payments_allusers}</a>
-	<!-- IF {PHP.id} -->
-	<a class="button large special" href="{PHP.id|cot_url('admin', 'm=payments&id='$this)}">{USER_NICKNAME}</a>
-	<!-- ENDIF -->
+<div class="quick-actions">
+	<a href="{PHP|cot_url('admin', 'm=payments')}" class="quick-action icon archive">{PHP.L.payments_allusers}</a>
+	<a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="quick-action icon archive">{PHP.L.payments_payout}</a>
 </div>
-<!-- IF {PHP.cfg.payments.balance_enabled} -->
-<p><b>{PHP.L.payments_siteinvoices}:</b> {PHP.L.payments_debet}: {INBALANCE} {PHP.L.valuta} | {PHP.L.payments_credit}: {OUTBALANCE} {PHP.L.valuta} | {PHP.L.payments_balance}: {BALANCE} {PHP.L.valuta}</p>
-<!-- ENDIF -->
-<p><b>{PHP.L.payments_allpayments}:</b> {CREDIT} {PHP.L.valuta}</p>
-<p>&nbsp;</p>
+
+<!-- BEGIN: PAYMENTS -->
+
+<div class="block button-toolbar">
+	<!-- IF {PHP.cfg.payments.balance_enabled} -->
+	<p><b>{PHP.L.payments_siteinvoices}:</b> {PHP.L.payments_debet}: {INBALANCE} {PHP.L.valuta} | {PHP.L.payments_credit}: {OUTBALANCE} {PHP.L.valuta} | {PHP.L.payments_balance}: {BALANCE} {PHP.L.valuta}</p>
+	<!-- ENDIF -->
+	<p><b>{PHP.L.payments_allpayments}:</b> {CREDIT} {PHP.L.valuta}</p>
+</div>
+
 <div class="block">
 	<table class="cells">
 	<thead>
@@ -50,5 +53,34 @@
 	</div>	
 	
 </div>
+	
+<!-- END: PAYMENTS -->
 
+<!-- BEGIN: PAYOUTS -->
+<table class="cells">
+<thead>
+	<tr>
+		<th class="span2">{PHP.L.User}</th>
+		<th class="span2">{PHP.L.payments_summ}</th>
+		<th>{PHP.L.payments_balance_payout_details}</th>
+		<th>{PHP.L.Date}</th>
+		<th></th>
+	</tr>
+</thead>	
+<!-- BEGIN: PAYOUT_ROW -->
+	<tr>
+		<td>{PAYOUT_ROW_USER_NAME}</td>
+		<td>{PAYOUT_ROW_SUMM}</td>
+		<td>{PAYOUT_ROW_DETAILS}</td>
+		<td><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i',$this)}<!-- ELSE -->&mdash;<!-- ENDIF --></td>
+		<td>
+			<!-- IF {PAYOUT_ROW_STATUS_ID} == 'process' -->
+			<a href="{PAYOUT_ROW_DONE_URL}">{PHP.L.Confirm}</a>
+			<!-- ENDIF -->
+		</td>
+	</tr>
+<!-- END: PAYOUT_ROW -->
+</table>
+<!-- END: PAYOUTS -->
+			
 <!-- END: MAIN -->

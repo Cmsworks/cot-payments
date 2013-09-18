@@ -17,6 +17,7 @@ require_once cot_langfile('payments', 'module');
 // Global variables
 global $db_payments, $db_payments_services, $db_x;
 $db_payments = (isset($db_payments)) ? $db_payments : $db_x . 'payments';
+$db_payments_outs = (isset($db_payments_outs)) ? $db_payments_outs : $db_x . 'payments_outs';
 $db_payments_services = (isset($db_payments_services)) ? $db_payments_services : $db_x . 'payments_services';
 
 
@@ -104,8 +105,6 @@ function cot_payments_create_order($area = 'balance', $summ, $options = array())
 			$payinfo['pay_' . $i] = $opt;
 		}
 	}
-
-	print_r($payinfo);
 
 	// Создание платежного поручения для системы
 
