@@ -16,6 +16,7 @@
 			<!-- IF {PHP.cfg.payments.balance_enabled} -->
 			<li<!-- IF {PHP.n} == 'billing' --> class="active"<!-- ENDIF -->><a href="{BALANCE_BILLING_URL}">{PHP.L.payments_paytobalance}</a></li>
 			<li<!-- IF {PHP.n} == 'payout' --> class="active"<!-- ENDIF -->><a href="{BALANCE_PAYOUT_URL}">{PHP.L.payments_payout}</a></li>
+			<li<!-- IF {PHP.n} == 'transfer' --> class="active"<!-- ENDIF -->><a href="{BALANCE_TRANSFER_URL}">{PHP.L.payments_transfer}</a></li>
 			<!-- ENDIF -->
 		</ul>		
 		
@@ -63,6 +64,31 @@
 			</table>
 		</form>
 		<!-- END: PAYOUTFORM -->
+		
+		<!-- BEGIN: TRANSFERFORM -->	
+		<h5>{PHP.L.payments_transfer}</h5>
+		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
+		<form action="{TRANSFER_FORM_ACTION_URL}" method="post">
+			<table class="customform">
+				<tr>
+					<td class="width30">{PHP.L.payments_balance_transfer_comment}:</td>
+					<td><textarea name="comment" rows="5" cols="40">{TRANSFER_FORM_COMMENT}</textarea></td>
+				</tr>
+				<tr>
+					<td class="width30">{PHP.L.payments_balance_transfer_summ}:</td>
+					<td><input type="text" name="summ" size="5" value="{TRANSFER_FORM_SUMM}"/> {PHP.L.valuta}</td>
+				</tr>
+				<tr>
+					<td class="width30">{PHP.L.payments_balance_transfer_username}:</td>
+					<td><input type="text" name="username" value="{TRANSFER_FORM_USERNAME}"/></td>
+				</tr>
+				<tr>
+					<td class="width30"></td>
+					<td><button class="btn btn-success">{PHP.L.Submit}</button></td>
+				</tr>
+			</table>
+		</form>
+		<!-- END: TRANSFERFORM -->
 		
 		<!-- BEGIN: HISTORY -->
 		<h5>{PHP.L.payments_history}</h5>

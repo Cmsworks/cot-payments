@@ -28,10 +28,20 @@ $L['payments_balance_payout_title'] = (isset($L['payments_balance_payout_title']
 $L['payments_balance_payout_desc'] = (isset($L['payments_balance_payout_desc'])) ? $L['payments_balance_payout_desc'] : 'Вывод со счета по заявке';
 $L['payments_balance_payout_summ'] = (isset($L['payments_balance_payout_summ'])) ? $L['payments_balance_payout_summ'] : 'Укажите сумму';
 $L['payments_balance_payout_details'] = (isset($L['payments_balance_payout_details'])) ? $L['payments_balance_payout_details'] : 'Реквизиты счета или кошелька';
-$L['payments_balance_billing_error_summ'] = (isset($L['payments_balance_billing_error_summ'])) ? $L['payments_balance_billing_error_summ'] : 'Не указана сумма';
 $L['payments_balance_payout_error_details'] = (isset($L['payments_balance_payout_error_details'])) ? $L['payments_balance_payout_error_details'] : 'Не указаны реквизиты';
+
+$L['payments_balance_billing_error_summ'] = (isset($L['payments_balance_billing_error_summ'])) ? $L['payments_balance_billing_error_summ'] : 'Не указана сумма';
 $L['payments_balance_billing_desc'] = (isset($L['payments_balance_billing_desc'])) ? $L['payments_balance_billing_desc'] : 'Пополнение счета';
 $L['payments_balance_billing_summ'] = (isset($L['payments_balance_billing_summ'])) ? $L['payments_balance_billing_summ'] : 'Укажите сумму';
+
+$L['payments_transfer'] = (isset($L['payments_transfer'])) ? $L['payments_transfer'] : 'Перевод пользователю';
+$L['payments_balance_transfer_desc'] = (isset($L['payments_balance_transfer_desc'])) ? $L['payments_balance_transfer_desc'] : "Перевод от %1\$s для %2\$s (%3\$s)";
+$L['payments_balance_transfer_comment'] = (isset($L['payments_balance_transfer_comment'])) ? $L['payments_balance_transfer_comment'] : "Комментарий";
+$L['payments_balance_transfer_summ'] = (isset($L['payments_balance_transfer_summ'])) ? $L['payments_balance_transfer_summ'] : "Укажите сумму";
+$L['payments_balance_transfer_username'] = (isset($L['payments_balance_transfer_username'])) ? $L['payments_balance_transfer_username'] : "Логин получателя";
+$L['payments_balance_transfer_error_username'] = (isset($L['payments_balance_transfer_error_username'])) ? $L['payments_balance_transfer_error_username'] : "Такого пользователя не существует";
+$L['payments_balance_transfer_error_summ'] = (isset($L['payments_balance_transfer_error_summ'])) ? $L['payments_balance_transfer_error_summ'] : 'Не указана сумма';
+$L['payments_balance_transfer_error_comment'] = (isset($L['payments_balance_transfer_error_comment'])) ? $L['payments_balance_transfer_error_comment'] : 'Не указаны комментарии к переводу';
 
 $L['payments_billing_title'] = (isset($L['payments_billing_title'])) ? $L['payments_billing_title'] : 'Способы оплаты';
 $L['payments_emptybillings'] = (isset($L['payments_emptybillings'])) ? $L['payments_emptybillings'] : 'На данный момент способы оплаты недоступны. Пожалуйста, попробуйте выполнить оплату позже.';
