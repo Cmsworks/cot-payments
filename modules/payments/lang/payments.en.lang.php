@@ -16,6 +16,7 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 $L['cfg_balance_enabled'] = array('Turn on internal billings');
 $L['cfg_valuta'] = array('Valuta');
+$L['cfg_clearpaymentsdays'] = array('Clean the base of unpaid bills after (days)');
 
 $L['payments_mybalance'] = 'My balance';
 $L['payments_balance'] = 'Balance';

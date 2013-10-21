@@ -16,6 +16,7 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 $L['cfg_balance_enabled'] = array('Включить внутренние счета');
 $L['cfg_valuta'] = array('Валюта сайта');
+$L['cfg_clearpaymentsdays'] = array('Очищать базу от неоплаченных платежек через (дней)');
 
 
 $L['payments_mybalance'] = 'Мой счет';
