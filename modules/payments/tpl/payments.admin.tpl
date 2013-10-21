@@ -11,9 +11,9 @@
 
 <div class="block button-toolbar">
 	<!-- IF {PHP.cfg.payments.balance_enabled} -->
-	<p><b>{PHP.L.payments_siteinvoices}:</b> {PHP.L.payments_debet}: {INBALANCE} {PHP.L.valuta} | {PHP.L.payments_credit}: {OUTBALANCE} {PHP.L.valuta} | {PHP.L.payments_balance}: {BALANCE} {PHP.L.valuta}</p>
+	<p><b>{PHP.L.payments_siteinvoices}:</b> {PHP.L.payments_debet}: {INBALANCE} {PHP.cfg.payments.valuta} | {PHP.L.payments_credit}: {OUTBALANCE} {PHP.cfg.payments.valuta} | {PHP.L.payments_balance}: {BALANCE} {PHP.cfg.payments.valuta}</p>
 	<!-- ENDIF -->
-	<p><b>{PHP.L.payments_allpayments}:</b> {CREDIT} {PHP.L.valuta}</p>
+	<p><b>{PHP.L.payments_allpayments}:</b> {CREDIT} {PHP.cfg.payments.valuta}</p>
 </div>
 
 <div class="block">

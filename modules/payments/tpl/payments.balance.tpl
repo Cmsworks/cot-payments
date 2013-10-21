@@ -6,7 +6,7 @@
 	<div class="span9">
 		
 		<!-- IF {PHP.cfg.payments.balance_enabled} -->
-		<h4>{PHP.L.payments_balance}: {BALANCE_SUMM|number_format($this, '2', '.', ' ')} {PHP.L.valuta}</h4>
+		<h4>{PHP.L.payments_balance}: {BALANCE_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</h4>
 		<!-- ENDIF -->
 		
 		<br/>
@@ -24,7 +24,7 @@
 		<h5>{PHP.L.payments_balance_billing_desc}</h5>
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 		<form action="{BALANCE_FORM_ACTION_URL}" method="post">
-			<p>{PHP.L.payments_balance_billing_summ}: <input type="text" name="summ" size="5" value="{BALANCE_FORM_SUMM}"/> {PHP.L.valuta}</p>
+			<p>{PHP.L.payments_balance_billing_summ}: <input type="text" name="summ" size="5" value="{BALANCE_FORM_SUMM}"/> {PHP.cfg.payments.valuta}</p>
 			<p><button class="btn btn-success">{PHP.L.payments_paytobalance}</button></p>
 		</form>
 		<!-- END: BILLINGFORM -->
@@ -38,7 +38,7 @@
 			<tr>
 				<td>{PAYOUT_ROW_ID}</td>
 				<td>{PAYOUT_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
-				<td style="text-align: right;">{PAYOUT_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.L.valuta}</td>
+				<td style="text-align: right;">{PAYOUT_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
 				<td><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
 			</tr>
 			<!-- END: PAYOUT_ROW -->
@@ -55,7 +55,7 @@
 				</tr>
 				<tr>
 					<td class="width30">{PHP.L.payments_balance_payout_summ}:</td>
-					<td><input type="text" name="summ" size="5" value="{PAYOUT_FORM_SUMM}"/> {PHP.L.valuta}</td>
+					<td><input type="text" name="summ" size="5" value="{PAYOUT_FORM_SUMM}"/> {PHP.cfg.payments.valuta}</td>
 				</tr>
 				<tr>
 					<td class="width30"></td>
@@ -76,7 +76,7 @@
 				</tr>
 				<tr>
 					<td class="width30">{PHP.L.payments_balance_transfer_summ}:</td>
-					<td><input type="text" name="summ" size="5" value="{TRANSFER_FORM_SUMM}"/> {PHP.L.valuta}</td>
+					<td><input type="text" name="summ" size="5" value="{TRANSFER_FORM_SUMM}"/> {PHP.cfg.payments.valuta}</td>
 				</tr>
 				<tr>
 					<td class="width30">{PHP.L.payments_balance_transfer_username}:</td>
@@ -99,7 +99,7 @@
 				<td><!-- IF {HIST_ROW_AREA} == 'balance' -->+<!-- ELSE -->-<!-- ENDIF --></td>
 				<td>{HIST_ROW_PDATE|cot_date('d.m.Y H:i', $this)}</td>
 				<td>{HIST_ROW_DESC}</td>
-				<td style="text-align: right;">{HIST_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.L.valuta}</td>
+				<td style="text-align: right;">{HIST_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
 			</tr>
 			<!-- END: HIST_ROW -->
 		</table>

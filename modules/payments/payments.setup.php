@@ -4,7 +4,7 @@
  * Code=payments
  * Name=Payments
  * Description=Платежный модуль
- * Version=1.1.3
+ * Version=1.1.4
  * Date=
  * Author=Yusupov, esclkm
  * Copyright=CMSWorks Team 2013
@@ -18,7 +18,8 @@
 
  * [BEGIN_COT_EXT_CONFIG]
  * balance_enabled=01:radio::1:Включить внутренние счета
- * clearpaymentsdays=02:string::0:Очищать базу от неоплаченных платежек через (дней)
+ * valuta=02:string::руб.:Название валюты сайта
+ * clearpaymentsdays=03:string::0:Очищать базу от неоплаченных платежек через (дней)
  * [END_COT_EXT_CONFIG]
  */
 
@@ -26,7 +27,7 @@
  * Payments module
  *
  * @package payments
- * @version 1.1.3
+ * @version 1.1.4
  * @author Yusupov, esclkm
  * @copyright Copyright (c) CMSWorks Team 2013
  * @license BSD
