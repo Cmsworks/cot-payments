@@ -16,7 +16,7 @@ cot_block($usr['auth_write']);
 
 $n = cot_import('n', 'G', 'ALP');
 $pid = cot_import('pid', 'G', 'INT');
-$rsumm = cot_import('rsumm', 'G', 'INT');
+$rsumm = cot_import('rsumm', 'G', 'NUM');
 
 if (empty($n))
 {
