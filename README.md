@@ -12,10 +12,7 @@ Payment system for Cotonti
 ==================================
 
 
-Разработчики:
-
-Булат Юсупов support@cmsworks.ru
-
-Павел Микулик esclkm@gmail.com
+Разработчик: Булат Юсупов 
+support@cmsworks.ru
 
 Copyright CMSWorks Team 2013
