@@ -31,6 +31,7 @@ $L['payments_balance_payout_desc'] = 'Payout';
 $L['payments_balance_payout_summ'] = 'Amount';
 $L['payments_balance_payout_details'] = 'Details';
 $L['payments_balance_payout_error_details'] = 'Details is empty';
+$L['payments_balance_payout_error_balance'] = 'A very large amount';
 
 $L['payments_balance_billing_error_summ'] = 'Amount empty';
 $L['payments_balance_billing_desc'] = 'Account funding';

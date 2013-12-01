@@ -31,6 +31,7 @@ $L['payments_balance_payout_desc'] = 'Вывод со счета по заявк
 $L['payments_balance_payout_summ'] = 'Укажите сумму';
 $L['payments_balance_payout_details'] = 'Реквизиты счета или кошелька';
 $L['payments_balance_payout_error_details'] = 'Не указаны реквизиты';
+$L['payments_balance_payout_error_balance'] = 'Указанная сумма превышает баланс вашего счета';
 
 $L['payments_balance_billing_error_summ'] = 'Не указана сумма';
 $L['payments_balance_billing_desc'] = 'Пополнение счета';
