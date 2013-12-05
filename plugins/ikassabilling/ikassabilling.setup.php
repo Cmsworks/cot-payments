@@ -22,7 +22,7 @@
  * shop_id=01:string:::Идентификатор магазина (ik_shop_id)
  * secret_key=02:string:::Секретный ключ (secret_key)
  * enablepost=03:radio::0:Разрешить post запросы
- * rate=04:radio::1:Соотношение суммы к валюте сайта
+ * rate=04:string::1:Соотношение суммы к валюте сайта
  * [END_COT_EXT_CONFIG]
  */
 
