@@ -10,8 +10,8 @@
  *
  * @package wmbilling
  * @version 1.0
- * @author Yusupov. esclkm
- * @copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
@@ -33,7 +33,7 @@ if (empty($m))
 		$rpay['pay_wmrnd'] = strtoupper(substr(md5(uniqid(microtime(), 1)) . getmypid(), 1, 8));
 		$db->update($db_payments, $rpay, "pay_id=?", array($pid));
 
-		$LMI_PAYMENT_AMOUNT = $pinfo['pay_summ'];
+		$LMI_PAYMENT_AMOUNT = $pinfo['pay_summ']*$cfg['plugin']['wmbilling']['webmoney_rate'];
 		$LMI_PAYMENT_DESC_BASE64 = base64_encode($pinfo['pay_desc']);
 		$LMI_PAYMENT_NO = $pid;
 		$LMI_PAYEE_PURSE = $cfg['plugin']['wmbilling']['webmoney_purse'];

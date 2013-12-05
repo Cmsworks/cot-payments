@@ -4,8 +4,8 @@
  *
  * @package wmbilling
  * @version 1.0
- * @author Yusupov, esclkm
- * @copyright Copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 
@@ -17,8 +17,9 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['cfg_webmoney_wmr'] = array('Webmoney WMR-кошелек');
 $L['cfg_webmoney_wmid'] = array('Webmoney WMID');
 $L['cfg_webmoney_skey'] = array('Webmoney Sekret key');
-$L['cfg_webmoney_mode'] = array('Test mode');
+$L['cfg_webmoney_mode'] = array('Тестовый режим');
 $L['cfg_webmoney_hashmethod'] = array('Hash method');
+$L['cfg_webmoney_rate'] = array('Соотношение к валюте сайта');
 
 $L['wmbilling_title'] = 'Webmoney';
 

@@ -10,8 +10,8 @@
  *
  * @package ikassabilling
  * @version 1.0
- * @author Yusupov. esclkm
- * @copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
@@ -31,7 +31,7 @@ if (empty($m))
 		cot_block($pinfo['pay_status'] == 'new' || $pinfo['pay_status'] == 'process');
 
 		$ik_shop_id = $cfg['plugin']['ikassabilling']['shop_id'];
-		$ik_payment_amount = $pinfo['pay_summ'];
+		$ik_payment_amount = $pinfo['pay_summ']*$cfg['plugin']['ikassabilling']['rate'];
 		$ik_payment_id = $pid;
 		$ik_payment_desc = $pinfo['pay_desc'];
 

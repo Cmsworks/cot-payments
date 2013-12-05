@@ -10,8 +10,8 @@
  *
  * @package roboxbilling
  * @version 1.0
- * @author Yusupov. esclkm
- * @copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
@@ -39,7 +39,7 @@ if (empty($m))
 		$inv_desc = $pinfo['pay_desc'];
 		$in_curr = '';
 		$culture = "ru";
-		$out_summ = $pinfo['pay_summ'];
+		$out_summ = $pinfo['pay_summ']*$cfg['plugin']['roboxbilling']['rate'];
 
 		$crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1:Shp_item=$shp_item");
 

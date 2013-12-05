@@ -6,8 +6,8 @@
  * Description=Платежный модуль
  * Version=1.1.4
  * Date=
- * Author=Yusupov, esclkm
- * Copyright=CMSWorks Team 2013
+ * Author=CMSWorks Team
+ * Copyright=Copyright (c) CMSWorks.ru, littledev.ru
  * Notes=
  * SQL=
  * Auth_guests=R
@@ -28,8 +28,8 @@
  *
  * @package payments
  * @version 1.1.4
- * @author Yusupov, esclkm
- * @copyright Copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 

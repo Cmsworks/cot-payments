@@ -10,8 +10,8 @@
  *
  * @package payments
  * @version 1.1.2
- * @author Yusupov, esclkm
- * @copyright Copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL.');

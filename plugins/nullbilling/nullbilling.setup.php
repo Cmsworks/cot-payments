@@ -8,8 +8,8 @@
  * Description=Null billing system for test mode
  * Version=1.0.0
  * Date=
- * Author=Yusupov
- * Copyright=&copy; CMSWorks Team 2013
+ * Author=CMSWorks Team
+ * Copyright=Copyright (c) CMSWorks.ru
  * Notes=
  * Auth_guests=RW
  * Lock_guests=12345A
@@ -28,8 +28,8 @@
  *
  * @package nullbilling
  * @version 1.0.0
- * @author Yusupov
- * @copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 ?>

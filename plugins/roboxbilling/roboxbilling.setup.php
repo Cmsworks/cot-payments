@@ -6,10 +6,10 @@
  * Name=Roboxbilling
  * Category=Payments
  * Description=Robox billing system
- * Version=1.0.1
+ * Version=1.0.2
  * Date=
- * Author=Yusupov, esclkm
- * Copyright=&copy; CMSWorks Team 2013
+ * Author=CMSWorks Team
+ * Copyright=Copyright (c) CMSWorks.ru
  * Notes=
  * Auth_guests=RW
  * Lock_guests=12345A
@@ -24,6 +24,7 @@
  * mrh_pass2=03:string:::Пароль #2 в Робокассе
  * testmode=04:radio::1:Тестовый режим
  * enablepost=05:radio::0:Разрешить post запросы
+ * rate=06:string::1:Соотношение суммы к валюте сайта
  * [END_COT_EXT_CONFIG]
  */
 
@@ -31,9 +32,9 @@
  * Robox billing Plugin
  *
  * @package roboxbilling
- * @version 1.0
- * @author Yusupov. esclkm
- * @copyright (c) CMSWorks Team 2013
+ * @version 1.0.2
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 ?>

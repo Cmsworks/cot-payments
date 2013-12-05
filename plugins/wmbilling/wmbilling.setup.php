@@ -6,10 +6,10 @@
  * Name=Wmbilling
  * Category=Payments
  * Description=Webmoney billing system
- * Version=1.0.1
+ * Version=1.0.2
  * Date=
- * Author=Yusupov, esclkm
- * Copyright=&copy; CMSWorks Team 2013
+ * Author=CMSWorks Team
+ * Copyright=Copyright (c) CMSWorks.ru
  * Notes=
  * Auth_guests=R
  * Lock_guests=12345A
@@ -24,6 +24,7 @@
  * webmoney_skey=03:string::hfdf8ddfdfgdfddfg:Webmoney Sekret key
  * webmoney_mode=04:radio::1:Test mode
  * webmoney_hashmethod=05:select:MD5,SIGN:MD5:Hash method
+ * webmoney_rate=06:string::1:Exchange rage
  * [END_COT_EXT_CONFIG]
  */
 
@@ -31,9 +32,9 @@
  * Webmoney billing Plugin
  *
  * @package wmbilling
- * @version 1.0.1
- * @author Yusupov. esclkm
- * @copyright (c) CMSWorks Team 2013
+ * @version 1.0.2
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 ?>

@@ -4,8 +4,8 @@
  *
  * @package roboxbilling
  * @version 1.0
- * @author Yusupov, esclkm
- * @copyright Copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 
@@ -18,7 +18,8 @@ $L['cfg_mrh_login'] = array('Логин в Робокассе');
 $L['cfg_mrh_pass1'] = array('Пароль #1 в Робокассе');
 $L['cfg_mrh_pass2'] = array('Пароль #2 в Робокассе');
 $L['cfg_testmode'] = array('Тестовый режим');
-$L['cfg_diablepost'] = array('Disable POST');
+$L['cfg_enablepost'] = array('Enable POST');
+$L['cfg_rate'] = array('Exchange rate');
 
 $L['roboxbilling_title'] = 'Robokassa';
 

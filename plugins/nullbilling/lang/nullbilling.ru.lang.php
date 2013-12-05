@@ -4,8 +4,8 @@
  *
  * @package nullbilling
  * @version 1.0.0
- * @author Yusupov
- * @copyright Copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 

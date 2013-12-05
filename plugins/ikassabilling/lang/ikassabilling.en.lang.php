@@ -4,8 +4,8 @@
  *
  * @package ikassabilling
  * @version 1.0
- * @author Yusupov, esclkm
- * @copyright Copyright (c) CMSWorks Team 2013
+ * @author CMSWorks Team
+ * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
  */
 
@@ -16,6 +16,8 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 $L['cfg_shop_id'] = array('Shop ID (ik_shop_id)', '');
 $L['cfg_secret_key'] = array('Secret key (secret_key)', '');
+$L['cfg_enablepost'] = array('Enable POST');
+$L['cfg_rate'] = array('Exchange rate', '');
 
 $L['ikassabilling_title'] = 'Interkassa';
 
