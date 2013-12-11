@@ -18,9 +18,10 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_incfile('payments', 'module');
 
-if (!in_array($m, array('billing', 'balance', 'history')))
+if (!in_array($m, array('billing', 'balance', 'error')))
 {
-	$m = 'default';
+	$msg = 1;
+	$m = 'error';
 }
 
 $out['subtitle'] = $L['payments_mybalance']; 

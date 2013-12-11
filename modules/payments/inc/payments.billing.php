@@ -20,6 +20,11 @@ $t = new XTemplate(cot_tplfile('payments.billing', 'module'));
 
 $pid = cot_import('pid', 'G', 'INT');
 
+if(empty($pid))
+{
+	cot_redirect(cot_url('payments', 'm=error&msg=2', '', true));
+}
+
 // Получаем информацию о заказе
 if ($pinfo = cot_payments_payinfo($pid))
 {
@@ -27,7 +32,7 @@ if ($pinfo = cot_payments_payinfo($pid))
 	cot_block($usr['id'] == $pinfo['pay_userid']);
 
 	// Если счета пользователей	 включены, то проверяем баланс
-	if ($cfg['payments']['balance_enabled'] && $pinfo['pay_area'] != 'balance')
+	if ($cfg['payments']['balance_enabled'] && $pinfo['pay_area'] != 'balance' && $usr['id'] > 0)
 	{
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 		if ($ubalance >= $pinfo['pay_summ'])
@@ -76,7 +81,7 @@ if ($pinfo = cot_payments_payinfo($pid))
 }
 else
 {
-	cot_die();
+	cot_redirect(cot_url('payments', 'm=error&msg=2', '', true));
 }
 
 $t->parse('MAIN');

@@ -92,6 +92,11 @@ function cot_payments_create_order($area = 'balance', $summ, $options = array())
 {
 	global $db_payments, $db_payments_balance, $db, $sys, $cfg, $usr;
 
+	if(empty($summ))
+	{
+		cot_redirect(cot_url('payments', 'm=error&msg=3', '', true));
+	}
+	
 	$payinfo['pay_userid'] = $usr['id'];
 	$payinfo['pay_area'] = $area;
 	$payinfo['pay_summ'] = $summ;

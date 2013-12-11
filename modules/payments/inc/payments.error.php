@@ -12,7 +12,11 @@
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('payments', 'any', 'RWA');
 cot_block($usr['auth_read']);
 
-$t = new XTemplate(cot_tplfile('payments.default', 'module'));
+$msg = cot_import('msg', 'G', 'INT');
+
+$t = new XTemplate(cot_tplfile('payments.error', 'module'));
+
+$t->assign('ERROR_TEXT', $L['payments_error_message_'.$msg]);
 
 $t->parse('MAIN');
 $module_body = $t->text('MAIN');
