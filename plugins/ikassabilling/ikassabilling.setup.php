@@ -6,7 +6,7 @@
  * Name=Ikassabilling
  * Category=Payments
  * Description=Ikassa billing system
- * Version=1.0.2
+ * Version=2.0
  * Date=
  * Author=CMSWorks Team
  * Copyright=Copyright (c) CMSWorks.ru
@@ -19,10 +19,11 @@
  * [END_COT_EXT]
  *
  * [BEGIN_COT_EXT_CONFIG]
- * shop_id=01:string:::Идентификатор магазина (ik_shop_id)
+ * shop_id=01:string:::Идентификатор магазина (Checkout ID)
  * secret_key=02:string:::Секретный ключ (secret_key)
  * enablepost=03:radio::0:Разрешить post запросы
- * rate=04:string::1:Соотношение суммы к валюте сайта
+ * currency=04:string::RUB:Код валюты (USD,RUB,EUR,GBP,YEN,CAD и др)
+ * rate=05:string::1:Соотношение суммы к валюте сайта
  * [END_COT_EXT_CONFIG]
  */
 
@@ -30,7 +31,7 @@
  * Ikassa billing Plugin
  *
  * @package ikassabilling
- * @version 1.0.2
+ * @version 2.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD

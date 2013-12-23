@@ -10,7 +10,7 @@
  * Interkassa billing Plugin
  *
  * @package ikassabilling
- * @version 1.0
+ * @version 2.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD

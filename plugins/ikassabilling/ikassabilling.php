@@ -9,7 +9,7 @@
  * Ikassa billing Plugin
  *
  * @package ikassabilling
- * @version 1.0
+ * @version 2.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
@@ -30,19 +30,16 @@ if (empty($m))
 
 		cot_block($pinfo['pay_status'] == 'new' || $pinfo['pay_status'] == 'process');
 
-		$ik_shop_id = $cfg['plugin']['ikassabilling']['shop_id'];
-		$ik_payment_amount = $pinfo['pay_summ']*$cfg['plugin']['ikassabilling']['rate'];
-		$ik_payment_id = $pid;
-		$ik_payment_desc = $pinfo['pay_desc'];
-
-		$ikassa_form = '<form id="ikassaform" name="payment" action="https://www.interkassa.com/lib/payment.php" method="post" 
-enctype="application/x-www-form-urlencoded" accept-charset="cp1251">
-		<input type="hidden" name="ik_shop_id" value="'.$ik_shop_id.'">
-		<input type="hidden" name="ik_payment_amount" value="'.$ik_payment_amount.'">
-		<input type="hidden" name="ik_payment_id" value="'.$ik_payment_id.'">
-		<input type="hidden" name="ik_payment_desc" value="'.$ik_payment_desc.'">
-		<input type="submit" name="process" class="btn btn-success btn-large" value="'.$L['ikassabilling_formbuy'].'">
-		</form>';
+		$amount = $pinfo['pay_summ']*$cfg['plugin']['ikassabilling']['rate'];
+		
+		$ikassa_form = '<form name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8"> 
+			<input type="hidden" name="ik_co_id" value="'.$cfg['plugin']['ikassabilling']['shop_id'].'" /> 
+			<input type="hidden" name="ik_pm_no" value="'.$pid.'" /> 
+			<input type="hidden" name="ik_am" value="'.$amount.'" /> 
+			<input type="hidden" name="ik_cur" value="'.$cfg['plugin']['ikassabilling']['currency'].'" /> 
+			<input type="hidden" name="ik_desc" value="'.$pinfo['pay_desc'].'" /> 
+			<button class="btn btn-success">'.$L['ikassabilling_formbuy'].'</button> 
+			</form>';
 
 		$t->assign(array(
 			'IKASSA_FORM' => $ikassa_form,
@@ -67,10 +64,10 @@ elseif ($m == 'success')
 		$status_data = $_GET;
 	}
 	
-	if($status_data['ik_payment_state'] == 'success' && $status_data['ik_shop_id'] == $cfg['plugin']['ikassabilling']['shop_id']) {
+	if($status_data['ik_inv_st'] == 'success' && $status_data['ik_co_id'] == $cfg['plugin']['ikassabilling']['shop_id']) {
 		
 		// проверка наличия номера платежки и ее статуса
-		$pinfo = cot_payments_payinfo($status_data['ik_payment_id']);
+		$pinfo = cot_payments_payinfo($status_data['ik_pm_no']);
 		if ($pinfo['pay_status'] == 'done')
 		{
 			$plugin_body = $L['ikassabilling_error_done'];
@@ -79,12 +76,29 @@ elseif ($m == 'success')
 		{
 			$plugin_body = $L['ikassabilling_error_paid'];
 		}
+		elseif ($pinfo['pay_status'] == 'process')
+		{
+			$plugin_body = $L['ikassabilling_error_wait'];
+		}
 		else
 		{
 			$plugin_body = $L['roboxbilling_error_otkaz'];
 		}
 	}
-	else{
+	elseif($status_data['ik_inv_st'] == 'waitAccept' || $status_data['ik_inv_st'] == 'process')
+	{
+		$plugin_body = $L['ikassabilling_error_wait'];
+	}
+	elseif($status_data['ik_inv_st'] == 'canceled')
+	{
+		$plugin_body = $L['ikassabilling_error_canceled'];
+	}
+	elseif($status_data['ik_inv_st'] == 'fail')
+	{
+		$plugin_body = $L['ikassabilling_error_fail'];
+	}
+	else
+	{
 		$plugin_body = $L['ikassabilling_error_incorrect'];
 	}
 

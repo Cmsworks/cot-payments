@@ -9,7 +9,7 @@
  * Ikassa billing Plugin
  *
  * @package ikassabilling
- * @version 1.0
+ * @version 2.0
  * @author CMSWorks Team
  * @copyright Copyright (c) CMSWorks.ru
  * @license BSD
@@ -29,22 +29,41 @@ else
 
 $secret_key = $cfg['plugin']['ikassabilling']['secret_key'];
 
-$sing_hash_str = $status_data['ik_shop_id'] . ':' .
-		$status_data['ik_payment_amount'] . ':' .
-		$status_data['ik_payment_id'] . ':' .
-		$status_data['ik_paysystem_alias'] . ':' .
-		$status_data['ik_baggage_fields'] . ':' .
-		$status_data['ik_payment_state'] . ':' .
-		$status_data['ik_trans_id'] . ':' .
-		$status_data['ik_currency_exch'] . ':' .
-		$status_data['ik_fees_payer'] . ':' .
-		$secret_key;
-$sign_hash = strtoupper(md5($sing_hash_str));
-
-
-if ($status_data['ik_sign_hash'] === $sign_hash && $status_data['ik_payment_state'] == 'success'
-		&& $status_data['ik_shop_id'] == $cfg['plugin']['ikassabilling']['shop_id'])
+$dataSet = array();
+foreach ($status_data as $key => $value)
 {
-	cot_payments_updatestatus($status_data['ik_payment_id'], 'paid');
+	if (!preg_match('/ik_/', $key))
+	continue;
+	$dataSet[$key] = $value;
 }
-?>
+
+$ik_sign = $dataSet['ik_sign'];
+unset($dataSet['ik_sign']);
+
+ksort($dataSet, SORT_STRING);
+array_push($dataSet, $secret_key);
+$signString = implode(':', $dataSet); 
+$sign = base64_encode(md5($signString, true)); 
+
+if(!empty($dataSet['ik_pm_no']))
+{
+	$payinfo = cot_payments_payinfo($dataSet['ik_pm_no']);
+}
+
+if ($ik_sign === $sign 
+	&& $dataSet['ik_inv_st'] == 'success'	
+	&& $dataSet['ik_co_id'] == $cfg['plugin']['ikassabilling']['shop_id'])
+{
+	if(cot_payments_updatestatus($dataSet['ik_pm_no'], 'paid'))
+	{
+		header ( 'HTTP/1.1 200' );
+	}
+	else
+	{
+		header ( 'HTTP/1.1 302' );
+	}
+}
+else
+{
+	header ( 'HTTP/1.1 302' );
+}
