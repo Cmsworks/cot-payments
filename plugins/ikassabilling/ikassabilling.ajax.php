@@ -40,8 +40,17 @@ foreach ($status_data as $key => $value)
 $ik_sign = $dataSet['ik_sign'];
 unset($dataSet['ik_sign']);
 
+if ($dataSet['ik_pw_via'] == 'test_interkassa_test_xts')
+{
+	$key = $cfg['plugin']['ikassabilling']['test_key'];
+}
+else
+{
+	$key = $cfg['plugin']['ikassabilling']['secret_key'];
+}
+
 ksort($dataSet, SORT_STRING);
-array_push($dataSet, $secret_key);
+array_push($dataSet, $key);
 $signString = implode(':', $dataSet); 
 $sign = base64_encode(md5($signString, true)); 
 

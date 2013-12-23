@@ -20,7 +20,8 @@
  *
  * [BEGIN_COT_EXT_CONFIG]
  * shop_id=01:string:::Идентификатор магазина (Checkout ID)
- * secret_key=02:string:::Секретный ключ (secret_key)
+ * test_key=02:string:::Тестовый ключ
+ * secret_key=02:string:::Секретный ключ
  * enablepost=03:radio::0:Разрешить post запросы
  * currency=04:string::RUB:Код валюты (USD,RUB,EUR,GBP,YEN,CAD и др)
  * rate=05:string::1:Соотношение суммы к валюте сайта

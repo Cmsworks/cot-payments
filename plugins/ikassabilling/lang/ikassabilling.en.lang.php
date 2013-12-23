@@ -15,7 +15,8 @@ defined('COT_CODE') or die('Wrong URL.');
  * Module Config
  */
 $L['cfg_shop_id'] = array('Shop ID (Checkout ID)', '');
-$L['cfg_secret_key'] = array('Secret key (secret_key)', '');
+$L['cfg_test_key'] = array('Test key', '');
+$L['cfg_secret_key'] = array('Secret key', '');
 $L['cfg_enablepost'] = array('Enable POST');
 $L['cfg_rate'] = array('Exchange rate', '');
 $L['cfg_currency'] = array('Currency', '');

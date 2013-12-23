@@ -15,7 +15,8 @@ defined('COT_CODE') or die('Wrong URL.');
  * Module Config
  */
 $L['cfg_shop_id'] = array('Идентификатор магазина (Checkout ID)', '');
-$L['cfg_secret_key'] = array('Секретный ключ (secret_key)', '');
+$L['cfg_test_key'] = array('Тестовый ключ', '');
+$L['cfg_secret_key'] = array('Секретный ключ', '');
 $L['cfg_enablepost'] = array('Включить post запросы');
 $L['cfg_rate'] = array('Соотношение суммы к валюте сайта', '');
 $L['cfg_currency'] = array('Валюта платежек', '');
