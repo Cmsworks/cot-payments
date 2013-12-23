@@ -27,8 +27,6 @@ else
 	$status_data = $_GET;
 }	
 
-$secret_key = $cfg['plugin']['ikassabilling']['secret_key'];
-
 $dataSet = array();
 foreach ($status_data as $key => $value)
 {
