@@ -34,7 +34,7 @@ $adminhelp = $L['adm_help_payments'];
 if($p == 'payouts')
 {
 	
-	if($a == 'done' && !empty($id)){
+	if($a == 'done' && isset($id)){
 
 		$payout = $db->query("SELECT * FROM $db_payments_outs
 			WHERE out_id=".$id)->fetch();
@@ -75,7 +75,7 @@ else
 	$where['status'] = "pay_status='done'";
 	$where['summ'] = 'pay_summ>0';
 
-	if(!empty($id))
+	if(isset($id))
 	{
 		$where['userid'] = 'pay_userid=' . $id;
 		$urr = $db->query("SELECT * FROM $db_users WHERE user_id=" . (int)$id)->fetch();
@@ -103,7 +103,19 @@ else
 	foreach($pays as $pay)
 	{
 		$t->assign(cot_generate_paytags($pay, 'PAY_ROW_'));
-		$t->assign(cot_generate_usertags($pay, 'PAY_ROW_USER_'));
+		
+		if($pay['pay_userid'] > 0)
+		{
+			$t->assign(cot_generate_usertags($pay, 'PAY_ROW_USER_'));
+		}
+		else
+		{
+			$t->assign(array(
+				'PAY_ROW_USER_ID' => 0,
+				'PAY_ROW_USER_NICKNAME' => $L['Guest'],
+			));
+		}
+		
 		$t->parse('MAIN.PAYMENTS.PAY_ROW');	
 	}
 
