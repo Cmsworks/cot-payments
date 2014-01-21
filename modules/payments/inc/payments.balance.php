@@ -115,7 +115,7 @@ if ($n == 'payouts')
 		$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
 			LEFT JOIN $db_payments AS p ON p.pay_code=o.out_id AND p.pay_area='payout'
 			WHERE out_userid=" . $usr['id'] . "
-			ORDER BY pay_cdate ASC")->fetchAll();
+			ORDER BY pay_cdate DESC")->fetchAll();
 		if(count($payouts) > 0)
 		{
 			foreach ($payouts as $payout)
