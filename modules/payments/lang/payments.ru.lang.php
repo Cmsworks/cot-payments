@@ -39,6 +39,19 @@ $L['payments_balance_billing_error_summ'] = 'Не указана сумма';
 $L['payments_balance_billing_desc'] = 'Пополнение счета';
 $L['payments_balance_billing_summ'] = 'Укажите сумму';
 
+$L['payments_balance_billing_admin_subject'] = 'Пополнение счета на сайте';
+$L['payments_balance_billing_admin_body'] = 'Здравствуйте,
+
+Пользователь %1$s произвел пополнение счета на сайте.
+
+Подробная информация:
+
+Сумма: %2$s
+Номер операции: %3$s.
+Дата операции: %4$s.
+
+';
+
 $L['payments_transfer'] = 'Перевод пользователю';
 $L['payments_balance_transfer_desc'] = "Перевод от %1\$s для %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Комментарий";

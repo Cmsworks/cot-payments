@@ -39,6 +39,19 @@ $L['payments_balance_billing_error_summ'] = 'Amount empty';
 $L['payments_balance_billing_desc'] = 'Account funding';
 $L['payments_balance_billing_summ'] = 'Enter the amount';
 
+$L['payments_balance_billing_admin_subject'] = 'Recharge deposit';
+$L['payments_balance_billing_admin_body'] = 'Hi,
+
+User %1$s recharged the deposit on the site.
+
+Details:
+
+Amount: %2$s
+Transaction number: %3$s.
+Transaction date: %4$s.
+
+';
+
 $L['payments_transfer'] = 'Transfer for user';
 $L['payments_balance_transfer_desc'] = "Transfer from %1\$s to %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Comment";
