@@ -71,6 +71,37 @@ $L['payments_balance_payout_admin_body'] = 'Здравствуйте,
 
 ';
 
+$L['payments_balance_transfer_admin_subject'] = 'Перевод пользователю';
+$L['payments_balance_transfer_admin_body'] = 'Здравствуйте,
+
+Пользователь %1$s осуществил перевод на счет пользователя %2$s.
+
+Подробная информация:
+
+Сумма перевода: %3$s %7$s
+Комиссия: %4$s %7$s
+Списано с отправителя: %5$s %7$s
+Начислено получателю: %6$s %7$s
+Дата перевода: %8$s
+Комментарий: %9$s
+
+';
+
+$L['payments_balance_transfer_recipient_subject'] = 'Перевод от пользователя';
+$L['payments_balance_transfer_recipient_body'] = 'Здравствуйте, %2$s
+
+Пользователь %1$s осуществил перевод на ваш счет на сайте.
+
+Подробная информация:
+
+Сумма перевода: %3$s %7$s
+Комиссия: %4$s %7$s
+Вам начислено: %6$s %7$s
+Дата перевода: %8$s
+Комментарий: %9$s
+
+';
+
 $L['payments_transfer'] = 'Перевод пользователю';
 $L['payments_balance_transfer_desc'] = "Перевод от %1\$s для %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Комментарий";

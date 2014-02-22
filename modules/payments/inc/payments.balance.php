@@ -162,13 +162,17 @@ if ($n == 'transfer')
 		$username = cot_import('username', 'P', 'TXT', 100, TRUE);
 		$comment = cot_import('comment', 'P', 'TXT');
 		
+		$taxsumm = $summ*$cfg['payments']['transfertax']/100;
+		
 		if($cfg['payments']['transfertaxfromrecipient'])
 		{
-			$total = $summ;
+			$sendersumm = $summ;
+			$recipientsumm = $summ - $taxsumm;
 		}
 		else 
 		{
-			$total = $summ + $summ*$cfg['payments']['transfertax']/100;
+			$sendersumm = $summ + $taxsumm;
+			$recipientsumm = $summ;
 		}
 		
 		$ubalance = cot_payments_getuserbalance($usr['id']);
@@ -178,14 +182,14 @@ if ($n == 'transfer')
 		cot_check(empty($recipient), 'payments_balance_transfer_error_username');
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment');
 		cot_check(empty($summ), 'payments_balance_transfer_error_summ');
-		cot_check($total > $ubalance, 'payments_balance_transfer_error_balance');	
+		cot_check($sendersumm > $ubalance, 'payments_balance_transfer_error_balance');	
 
 		if(!cot_error_found())
 		{
 			$payinfo['pay_userid'] = $usr['id'];
 			$payinfo['pay_area'] = 'transfer';
 			$payinfo['pay_code'] = $recipient['user_id'];
-			$payinfo['pay_summ'] = $total;
+			$payinfo['pay_summ'] = $sendersumm;
 			$payinfo['pay_cdate'] = $sys['now'];
 			$payinfo['pay_pdate'] = $sys['now'];
 			$payinfo['pay_adate'] = $sys['now'];
@@ -194,12 +198,12 @@ if ($n == 'transfer')
 
 			$db->insert($db_payments, $payinfo);
 			$pid = $db->lastInsertId();
-			cot_payments_updateuserbalance($usr['id'], -$total, $pid);
+			cot_payments_updateuserbalance($usr['id'], -$sendersumm, $pid);
 			
 			$payinfo['pay_userid'] = $recipient['user_id'];
 			$payinfo['pay_area'] = 'balance';
 			$payinfo['pay_code'] = $pid;
-			$payinfo['pay_summ'] = ($cfg['payments']['transfertaxfromrecipient']) ? $summ - $summ*$cfg['payments']['transfertax']/100 : $summ;
+			$payinfo['pay_summ'] = $recipientsumm;
 			$payinfo['pay_cdate'] = $sys['now'];
 			$payinfo['pay_pdate'] = $sys['now'];
 			$payinfo['pay_adate'] = $sys['now'];
@@ -208,6 +212,16 @@ if ($n == 'transfer')
 
 			$db->insert($db_payments, $payinfo);
 			$pid = $db->lastInsertId();
+			
+			// Отправка уведомления админу о переводе между пользователями
+			$subject = $L['payments_balance_transfer_admin_subject'];
+			$body = sprintf($L['payments_balance_transfer_admin_body'], $usr['name'], $recipient['user_name'], $summ, $taxsumm, $sendersumm, $recipientsumm, $cfg['payments']['valuta'], cot_date('d.m.Y в H:i', $sys['now']), $comment);
+			cot_mail($cfg['adminemail'], $subject, $body);
+			
+			// Отправка уведомления админу о переводе между пользователями
+			$subject = $L['payments_balance_transfer_recipient_subject'];
+			$body = sprintf($L['payments_balance_transfer_recipient_body'], $usr['name'], $recipient['user_name'], $summ, $taxsumm, $sendersumm, $recipientsumm, $cfg['payments']['valuta'], cot_date('d.m.Y в H:i', $sys['now']), $comment);
+			cot_mail($recipient['user_email'], $subject, $body);
 			
 			cot_redirect(cot_url('payments', 'm=balance&n=history', '', true));
 		}
@@ -219,8 +233,8 @@ if ($n == 'transfer')
 	$t->assign(array(
 		'TRANSFER_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=transfer&a=add'),
 		'TRANSFER_FORM_SUMM' => cot_inputbox('text', 'summ', $summ),
-		'TRANSFER_FORM_TAX' => $summ*$cfg['payments']['transfertax']/100,
-		'TRANSFER_FORM_TOTAL' => (!empty($total)) ? $total : 0,
+		'TRANSFER_FORM_TAX' => $taxsumm,
+		'TRANSFER_FORM_TOTAL' => (!empty($sendersumm)) ? $sendersumm : 0,
 		'TRANSFER_FORM_COMMENT' => $comment,
 		'TRANSFER_FORM_USERNAME' => $username,
 	));

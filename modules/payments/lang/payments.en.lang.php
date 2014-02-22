@@ -71,6 +71,37 @@ Details: %5$s.
 
 ';
 
+$L['payments_balance_transfer_admin_subject'] = 'Transfer for user';
+$L['payments_balance_transfer_admin_body'] = 'Hi,
+
+User %1$s sent transfer for user %2$s.
+
+Details:
+
+Amount: %3$s %7$s
+Commission: %4$s %7$s
+Eliminated from the sender: %5$s %7$s
+Posted to the recipient: %6$s %7$s
+Date: %8$s
+Comment: %9$s
+
+';
+
+$L['payments_balance_transfer_recipient_subject'] = 'Transfer for you';
+$L['payments_balance_transfer_recipient_body'] = 'Hi, %2$s
+
+User %1$s sent transfer for your account on site
+
+Details:
+
+Amount: %3$s %7$s
+Commission: %4$s %7$s
+Posted to you: %6$s %7$s
+Date: %8$s
+Comment: %9$s
+
+';
+
 $L['payments_transfer'] = 'Transfer for user';
 $L['payments_balance_transfer_desc'] = "Transfer from %1\$s to %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Comment";
