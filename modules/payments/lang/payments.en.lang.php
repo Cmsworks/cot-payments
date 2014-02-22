@@ -16,7 +16,12 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 $L['cfg_balance_enabled'] = array('Turn on internal billings');
 $L['cfg_valuta'] = array('Valuta');
-$L['cfg_clearpaymentsdays'] = array('Clean the base of unpaid bills after (days)');
+$L['cfg_transfers_enabled'] = array('Enable transfers between users');
+$L['cfg_transfertax'] = array('Charges for transfers between users', '%');
+$L['cfg_transfertaxfromrecipient'] = array('Charge a commission to the recipient');
+$L['cfg_payouts_enabled'] = array('Enable requests of payout');
+$L['cfg_payouttax'] = array('Commission for payout', '%');
+$L['cfg_clearpaymentsdays'] = array('Clean the base of unpaid bills after', 'дней');
 
 $L['payments_mybalance'] = 'My balance';
 $L['payments_balance'] = 'Balance';

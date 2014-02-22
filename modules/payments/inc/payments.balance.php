@@ -162,13 +162,20 @@ if ($n == 'transfer')
 		$username = cot_import('username', 'P', 'TXT', 100, TRUE);
 		$comment = cot_import('comment', 'P', 'TXT');
 		
-		$total = $summ + $summ*$cfg['payments']['transfertax']/100;
+		if($cfg['payments']['transfertaxfromrecipient'])
+		{
+			$total = $summ;
+		}
+		else 
+		{
+			$total = $summ + $summ*$cfg['payments']['transfertax']/100;
+		}
 		
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 		
-		$user = $db->query("SELECT * FROM $db_users WHERE user_name = ? LIMIT 1", array($username))->fetch();
+		$recipient = $db->query("SELECT * FROM $db_users WHERE user_name = ? LIMIT 1", array($username))->fetch();
 		
-		cot_check(empty($user), 'payments_balance_transfer_error_username');
+		cot_check(empty($recipient), 'payments_balance_transfer_error_username');
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment');
 		cot_check(empty($summ), 'payments_balance_transfer_error_summ');
 		cot_check($total > $ubalance, 'payments_balance_transfer_error_balance');	
@@ -177,27 +184,27 @@ if ($n == 'transfer')
 		{
 			$payinfo['pay_userid'] = $usr['id'];
 			$payinfo['pay_area'] = 'transfer';
-			$payinfo['pay_code'] = $user['user_id'];
+			$payinfo['pay_code'] = $recipient['user_id'];
 			$payinfo['pay_summ'] = $total;
 			$payinfo['pay_cdate'] = $sys['now'];
 			$payinfo['pay_pdate'] = $sys['now'];
 			$payinfo['pay_adate'] = $sys['now'];
 			$payinfo['pay_status'] = 'done';
-			$payinfo['pay_desc'] = sprintf($L['payments_balance_transfer_desc'], $usr['name'], $user['user_name'], $comment);
+			$payinfo['pay_desc'] = sprintf($L['payments_balance_transfer_desc'], $usr['name'], $recipient['user_name'], $comment);
 
 			$db->insert($db_payments, $payinfo);
 			$pid = $db->lastInsertId();
 			cot_payments_updateuserbalance($usr['id'], -$total, $pid);
 			
-			$payinfo['pay_userid'] = $user['user_id'];
+			$payinfo['pay_userid'] = $recipient['user_id'];
 			$payinfo['pay_area'] = 'balance';
 			$payinfo['pay_code'] = $pid;
-			$payinfo['pay_summ'] = $summ;
+			$payinfo['pay_summ'] = ($cfg['payments']['transfertaxfromrecipient']) ? $summ - $summ*$cfg['payments']['transfertax']/100 : $summ;
 			$payinfo['pay_cdate'] = $sys['now'];
 			$payinfo['pay_pdate'] = $sys['now'];
 			$payinfo['pay_adate'] = $sys['now'];
 			$payinfo['pay_status'] = 'done';
-			$payinfo['pay_desc'] = sprintf($L['payments_balance_transfer_desc'], $usr['name'], $user['user_name'], $comment);
+			$payinfo['pay_desc'] = sprintf($L['payments_balance_transfer_desc'], $usr['name'], $recipient['user_name'], $comment);
 
 			$db->insert($db_payments, $payinfo);
 			$pid = $db->lastInsertId();

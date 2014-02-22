@@ -16,7 +16,12 @@ defined('COT_CODE') or die('Wrong URL.');
  */
 $L['cfg_balance_enabled'] = array('Включить внутренние счета');
 $L['cfg_valuta'] = array('Валюта сайта');
-$L['cfg_clearpaymentsdays'] = array('Очищать базу от неоплаченных платежек через (дней)');
+$L['cfg_transfers_enabled'] = array('Включить переводы между пользователями');
+$L['cfg_transfertax'] = array('Комиссия за переводы между пользователями', '%');
+$L['cfg_transfertaxfromrecipient'] = array('Удерживать комиссию с получателя перевода');
+$L['cfg_payouts_enabled'] = array('Включить заявки на вывод со счета');
+$L['cfg_payouttax'] = array('Комиссия за вывод со счета', '%');
+$L['cfg_clearpaymentsdays'] = array('Очищать базу от неоплаченных платежек через', 'дней');
 
 $L['payments_mybalance'] = 'Мой счет';
 $L['payments_balance'] = 'На счету';
