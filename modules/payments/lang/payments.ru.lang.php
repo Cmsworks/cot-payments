@@ -52,6 +52,20 @@ $L['payments_balance_billing_admin_body'] = 'Здравствуйте,
 
 ';
 
+$L['payments_balance_payout_admin_subject'] = 'Заявка на вывод со счета';
+$L['payments_balance_payout_admin_body'] = 'Здравствуйте,
+
+Пользователь %1$s оставил заявку на вывод денег с его счета на сайте.
+
+Подробная информация:
+
+Сумма: %2$s
+Номер заявки: %3$s
+Дата подачи заявки: %4$s
+Реквизиты: %5$s.
+
+';
+
 $L['payments_transfer'] = 'Перевод пользователю';
 $L['payments_balance_transfer_desc'] = "Перевод от %1\$s для %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Комментарий";

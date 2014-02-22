@@ -104,6 +104,11 @@ if ($n == 'payouts')
 				$pid = $db->lastInsertId();
 
 				cot_payments_updateuserbalance($usr['id'], -$total, $pid);
+				
+				// Отправка уведомления админу о новой заявке на вывод
+				$subject = $L['payments_balance_payout_admin_subject'];
+				$body = sprintf($L['payments_balance_payout_admin_body'], $urr['user_name'], $summ.' '.$cfg['payments']['valuta'], $oid, cot_date('d.m.Y в H:i', $sys['now']), $details);
+				cot_mail($cfg['adminemail'], $subject, $body);
 			}
 			cot_redirect(cot_url('payments', 'm=balance&n=history', '', true));
 		}

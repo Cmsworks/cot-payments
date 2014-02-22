@@ -52,6 +52,20 @@ Transaction date: %4$s.
 
 ';
 
+$L['payments_balance_payout_admin_subject'] = 'Request of payout ';
+$L['payments_balance_payout_admin_body'] = 'Hi,
+
+User %1$s leave request to payout from his account on the site. 
+
+Details: 
+
+Amount: %2$s 
+Request number: %3$s 
+Request date: %4$s 
+Details: %5$s.
+
+';
+
 $L['payments_transfer'] = 'Transfer for user';
 $L['payments_balance_transfer_desc'] = "Transfer from %1\$s to %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Comment";
