@@ -30,17 +30,14 @@ if (empty($m))
 
 		cot_block($pinfo['pay_status'] == 'new' || $pinfo['pay_status'] == 'process');
 
-		if(empty($pay['pay_wmrnd']))
-		{
-			$pay['pay_wmrnd'] = strtoupper(substr(md5(uniqid(microtime(), 1)) . getmypid(), 1, 8));
-			$db->update($db_payments, $rpay, "pay_id=?", array($pid));
-		}
-		
+		$rpay['pay_wmrnd'] = strtoupper(substr(md5(uniqid(microtime(), 1)) . getmypid(), 1, 8));
+		$db->update($db_payments, $rpay, "pay_id=?", array($pid));
+
 		$LMI_PAYMENT_AMOUNT = $pinfo['pay_summ']*$cfg['plugin']['wmbilling']['webmoney_rate'];
 		$LMI_PAYMENT_DESC_BASE64 = base64_encode($pinfo['pay_desc']);
 		$LMI_PAYMENT_NO = $pid;
 		$LMI_PAYEE_PURSE = $cfg['plugin']['wmbilling']['webmoney_purse'];
-		$RND = $pay['pay_wmrnd'];
+		$RND = $rpay['pay_wmrnd'];
 		$LMI_SIM_MODE = '0';
 		$LMI_HASH_METHOD = 'SIGN';
 
