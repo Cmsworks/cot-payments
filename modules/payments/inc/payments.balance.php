@@ -75,7 +75,6 @@ if ($n == 'payouts')
 				$utax_array = explode(',', $potaxs);
 				if($utax_array[0] == $usr['id'] && isset($utax_array[1])){
 					$utax = $utax_array[1];
-					echo $utax.'<br/>';
 				}
 			}
 		}
