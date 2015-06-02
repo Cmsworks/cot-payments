@@ -68,6 +68,16 @@ if ($n == 'payouts')
 {
 	cot_block($cfg['payments']['payouts_enabled']);
 	
+	$payouttax_array = explode('|', $cfg['payments']['payouttax']);
+	if(is_array($payouttax_array)){
+		foreach ($payouttax_array as $potaxs){
+			$utax_array = explode(':', $potaxs);
+			if($utax_array[0] == $usr['id']){
+				$cfg['payments']['payouttax'] = $utax_array[1];
+			}
+		}
+	}
+
 	if ($a == 'send')
 	{
 
