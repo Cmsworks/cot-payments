@@ -96,7 +96,7 @@ if ($n == 'payouts')
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 			
 		cot_check(empty($details), 'payments_balance_payout_error_details');
-		cot_check(empty($summ), 'payments_balance_payout_error_summ');
+		cot_check(empty($summ) || $summ < 0, 'payments_balance_payout_error_summ');
 		cot_check($total > $ubalance, 'payments_balance_payout_error_balance');	
 		cot_check($cfg['payments']['payoutmin'] > 0 && $summ < $cfg['payments']['payoutmin'], sprintf($L['payments_balance_payout_error_min'], $cfg['payments']['payoutmin'], $cfg['payments']['valuta']));	
 		cot_check($cfg['payments']['payoutmax'] > 0 && $summ > $cfg['payments']['payoutmax'], sprintf($L['payments_balance_payout_error_max'], $cfg['payments']['payoutmax'], $cfg['payments']['valuta']));	
