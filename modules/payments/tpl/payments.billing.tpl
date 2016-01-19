@@ -5,10 +5,10 @@
 	<h4>{PHP.L.payments_billing_title}:</h4>
 	<!-- BEGIN: BILL_ROW -->
 	<div class="row">
-		<div class="span2">
+		<div class="span2 col-md-2">
 			<div class="thumbnail"><img src="<!-- IF {BILL_ROW_ICON} -->{BILL_ROW_ICON}<!-- ELSE -->modules/payments/images/billing_blank.png<!-- ENDIF -->" /></div>
 		</div>
-		<div class="span7">
+		<div class="span7 col-md-10">
 			<h5><a href="{BILL_ROW_URL}">{BILL_ROW_TITLE}</a></h5>
 		</div>
 	</div>

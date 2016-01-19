@@ -58,9 +58,11 @@ if ($n == 'billing')
 
 	cot_display_messages($t, 'MAIN.BILLINGFORM');
 
+	$rsumm = (!empty($rsumm)) ? $rsumm : $summ;
+
 	$t->assign(array(
 		'BALANCE_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=billing&a=buy&pid=' . $pid),
-		'BALANCE_FORM_SUMM' => (!empty($rsumm)) ? $rsumm : $summ,
+		'BALANCE_FORM_SUMM' => cot_inputbox('text', 'summ', $rsumm),
 	));
 	$t->parse('MAIN.BILLINGFORM');
 }
