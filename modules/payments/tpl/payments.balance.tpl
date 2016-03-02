@@ -20,118 +20,127 @@
 	<!-- ENDIF -->
 	<!-- ENDIF -->
 </ul>		
+<div class="tab-content">
 
-<!-- BEGIN: BILLINGFORM -->
-<h5>{PHP.L.payments_balance_billing_desc}</h5>
-{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
-<form action="{BALANCE_FORM_ACTION_URL}" method="post" class="form-horizontal">
-	<div class="form-group">
-		<label class="col-md-2 control-label">{PHP.L.payments_balance_billing_summ}:</label>
-		<div class="col-md-2">
-			<div class="input-group">
-		        {BALANCE_FORM_SUMM}
-		        <span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
+	<!-- BEGIN: BILLINGFORM -->
+	<h5>{PHP.L.payments_balance_billing_desc}</h5>
+	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
+	<form action="{BALANCE_FORM_ACTION_URL}" method="post" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_billing_summ}:</label>
+			<div class="col-md-2">
+				<div class="input-group">
+			        {BALANCE_FORM_SUMM}
+			        <span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
+		        </div>
 	        </div>
-        </div>
-	</div>
-	<div class="form-group">
-		<label class="col-md-2 control-label"></label>
-		<div class="col-md-2"><button class="btn btn-success">{PHP.L.payments_paytobalance}</button></div>
-	</label>
-</form>
-<!-- END: BILLINGFORM -->
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"></label>
+			<div class="col-md-2"><button class="btn btn-success">{PHP.L.payments_paytobalance}</button></div>
+		</div>
+	</form>
+	<!-- END: BILLINGFORM -->
 
-<!-- BEGIN: PAYOUTS -->
-<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=payouts&a=add')}">{PHP.L.payments_balance_payouts_button}</a>
-<h5>{PHP.L.payments_balance_payout_list}</h5>
-<table class="table">
-	<!-- BEGIN: PAYOUT_ROW -->
-	<tr>
-		<td>{PAYOUT_ROW_ID}</td>
-		<td>{PAYOUT_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
-		<td style="text-align: right;">{PAYOUT_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
-		<td><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
-	</tr>
-	<!-- END: PAYOUT_ROW -->
-</table>
-<!-- END: PAYOUTS -->
-
-<!-- BEGIN: PAYOUTFORM -->
-<h5>{PHP.L.payments_balance_payout_title}</h5>
-{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
-<form action="{PAYOUT_FORM_ACTION_URL}" method="post" id="payoutform">
-	<table class="customform">
+	<!-- BEGIN: PAYOUTS -->
+	<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=payouts&a=add')}">{PHP.L.payments_balance_payouts_button}</a>
+	<h5>{PHP.L.payments_balance_payout_list}</h5>
+	<table class="table table-striped">
+		<!-- BEGIN: PAYOUT_ROW -->
 		<tr>
-			<td class="width30">{PHP.L.payments_balance_payout_details}:</td>
-			<td><textarea name="details" rows="5" cols="40">{PAYOUT_FORM_DETAILS}</textarea></td>
+			<td>{PAYOUT_ROW_ID}</td>
+			<td>{PAYOUT_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
+			<td style="text-align: right;">{PAYOUT_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
+			<td><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
 		</tr>
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_payout_summ}:</td>
-			<td>{PAYOUT_FORM_SUMM} {PHP.cfg.payments.valuta}</td>
-		</tr>
-		<!-- IF {PHP.cfg.payments.payouttax} > 0 -->
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_payout_tax} ({PHP.cfg.payments.payouttax}%):</td>
-			<td><span id="payout_tax">{PAYOUT_FORM_TAX}</span> {PHP.cfg.payments.valuta}</td>
-		</tr>
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_payout_total}:</td>
-			<td><span id="payout_total">{PAYOUT_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}</td>
-		</tr>
-		<!-- ENDIF -->
-		<tr>
-			<td class="width30"></td>
-			<td><button class="btn btn-success">{PHP.L.Submit}</button></td>
-		</tr>
+		<!-- END: PAYOUT_ROW -->
 	</table>
-</form>
-		
-<!-- IF {PHP.cfg.payments.payouttax} > 0 -->		
-<script>
-	$().ready(function() {
-		$('#payoutform').bind('change click keyup', function (){
-			var summ = parseFloat($("input[name='summ']").val());
-			var tax = parseFloat({PHP.cfg.payments.payouttax});
+	<!-- END: PAYOUTS -->
 
-			if(isNaN(summ)) summ = 0;
+	<!-- BEGIN: PAYOUTFORM -->
+	<h5>{PHP.L.payments_balance_payout_title}</h5>
+	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
+	<form action="{PAYOUT_FORM_ACTION_URL}" method="post" id="payoutform" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_details}:</label>
+			<div class="col-md-6">{PAYOUT_FORM_DETAILS}</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_summ}:</label>
+			<div class="col-md-2">
+				<div class="input-group">
+			        {PAYOUT_FORM_SUMM}
+			        <span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
+		        </div>
+		    </div>
+		</div>
+			<!-- IF {PHP.cfg.payments.payouttax} > 0 -->
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_tax} ({PHP.cfg.payments.payouttax}%):</label>
+			<div class="col-md-2 form-control-static"><span id="payout_tax">{PAYOUT_FORM_TAX}</span> {PHP.cfg.payments.valuta}</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_payout_total}:</label>
+			<div class="col-md-2 form-control-static"><span id="payout_total">{PAYOUT_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}</div>
+		</div>
+			<!-- ENDIF -->
+		<div class="form-group">
+			<label class="col-md-2 control-label"></label>
+			<div class="col-md-2"><button class="btn btn-success">{PHP.L.Submit}</button></td>
+			</div>
+		</div>
+	</form>
+			
+	<!-- IF {PHP.cfg.payments.payouttax} > 0 -->		
+	<script>
+		$().ready(function() {
+			$('#payoutform').bind('change click keyup', function (){
+				var summ = parseFloat($("input[name='summ']").val());
+				var tax = parseFloat({PHP.cfg.payments.payouttax});
 
-			var taxsumm = summ*tax/100;
-			var totalsumm = summ + taxsumm;
+				if(isNaN(summ)) summ = 0;
 
-			$('#payout_tax').html(taxsumm);
-			$('#payout_total').html(totalsumm);
+				var taxsumm = summ*tax/100;
+				var totalsumm = summ + taxsumm;
+
+				$('#payout_tax').html(taxsumm);
+				$('#payout_total').html(totalsumm);
+			});
 		});
-	});
-</script>
-<!-- ENDIF -->
+	</script>
+	<!-- ENDIF -->
 
-<!-- END: PAYOUTFORM -->
+	<!-- END: PAYOUTFORM -->
 
-<!-- BEGIN: TRANSFERFORM -->	
-<h5>{PHP.L.payments_transfer}</h5>
-{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
-<form action="{TRANSFER_FORM_ACTION_URL}" method="post" id="transferform">
-	<table class="table">
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_transfer_comment}:</td>
-			<td><textarea name="comment" rows="5" cols="40">{TRANSFER_FORM_COMMENT}</textarea></td>
-		</tr>
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_transfer_username}:</td>
-			<td><input type="text" name="username" value="{TRANSFER_FORM_USERNAME}"/></td>
-		</tr>
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_transfer_summ}:</td>
-			<td>{TRANSFER_FORM_SUMM} {PHP.cfg.payments.valuta}</td>
-		</tr>
+	<!-- BEGIN: TRANSFERFORM -->	
+	<h5>{PHP.L.payments_transfer}</h5>
+	{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
+	<form action="{TRANSFER_FORM_ACTION_URL}" method="post" id="transferform" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_comment}:</label>
+			<div class="col-md-6">{TRANSFER_FORM_COMMENT}</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_username}:</label>
+			<div class="col-md-2">{TRANSFER_FORM_USERNAME}</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_summ}:</label>
+			<div class="col-md-2">
+				<div class="input-group">
+					{TRANSFER_FORM_SUMM} 
+					<span class="input-group-addon">{PHP.cfg.payments.valuta}</span>
+				</div>
+			</div>
+		</div>
 		<!-- IF {PHP.cfg.payments.transfertax} > 0 AND !{PHP.cfg.payments.transfertaxfromrecipient} -->
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_transfer_tax} ({PHP.cfg.payments.transfertax}%):</td>
-			<td><span id="transfer_tax">{TRANSFER_FORM_TAX}</span> {PHP.cfg.payments.valuta}</td>
-		</tr>
-		<tr>
-			<td class="width30">{PHP.L.payments_balance_transfer_total}:</td>
-			<td>
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_tax} ({PHP.cfg.payments.transfertax}%):</label>
+			<div class="col-md-2 form-control-static"><span id="transfer_tax">{TRANSFER_FORM_TAX}</span> {PHP.cfg.payments.valuta}</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">{PHP.L.payments_balance_transfer_total}:</label>
+			<div class="col-md-2 form-control-static">
 				<span id="transfer_total">{TRANSFER_FORM_TOTAL}</span> {PHP.cfg.payments.valuta}
 			
 				<script>
@@ -151,31 +160,32 @@
 					});
 				</script>
 				
-			</td>
-		</tr>
+			</div>
+		</div>
 		<!-- ENDIF -->
+		<div class="form-group">
+			<label class="col-md-2 control-label"></label>
+			<div class="col-md-2"><button class="btn btn-success">{PHP.L.Submit}</button></div>
+		</div>
+	</form>
+
+	<!-- END: TRANSFERFORM -->
+
+	<!-- BEGIN: HISTORY -->
+	<h5>{PHP.L.payments_history}</h5>
+	<table class="table table-striped">
+		<!-- BEGIN: HIST_ROW -->
 		<tr>
-			<td class="width30"></td>
-			<td><button class="btn btn-success">{PHP.L.Submit}</button></td>
+			<td>{HIST_ROW_ID}</td>
+			<td><!-- IF {HIST_ROW_AREA} == 'balance' -->+<!-- ELSE -->-<!-- ENDIF --></td>
+			<td>{HIST_ROW_PDATE|cot_date('d.m.Y H:i', $this)}</td>
+			<td>{HIST_ROW_DESC}</td>
+			<td style="text-align: right;">{HIST_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
 		</tr>
+		<!-- END: HIST_ROW -->
 	</table>
-</form>
+	<!-- END: HISTORY -->
 
-<!-- END: TRANSFERFORM -->
-
-<!-- BEGIN: HISTORY -->
-<h5>{PHP.L.payments_history}</h5>
-<table class="table">
-	<!-- BEGIN: HIST_ROW -->
-	<tr>
-		<td>{HIST_ROW_ID}</td>
-		<td><!-- IF {HIST_ROW_AREA} == 'balance' -->+<!-- ELSE -->-<!-- ENDIF --></td>
-		<td>{HIST_ROW_PDATE|cot_date('d.m.Y H:i', $this)}</td>
-		<td>{HIST_ROW_DESC}</td>
-		<td style="text-align: right;">{HIST_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
-	</tr>
-	<!-- END: HIST_ROW -->
-</table>
-<!-- END: HISTORY -->
+</div>
 
 <!-- END: MAIN -->

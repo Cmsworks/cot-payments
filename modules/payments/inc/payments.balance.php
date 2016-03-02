@@ -170,7 +170,7 @@ if ($n == 'payouts')
 			'PAYOUT_FORM_SUMM' => cot_inputbox('text', 'summ', $summ),
 			'PAYOUT_FORM_TAX' => $summ*$cfg['payments']['payouttax']/100,
 			'PAYOUT_FORM_TOTAL' => (!empty($total)) ? $total : 0,
-			'PAYOUT_FORM_DETAILS' => $details,
+			'PAYOUT_FORM_DETAILS' => cot_textarea('details', $details, 10, 80),
 		));
 		$t->parse('MAIN.PAYOUTFORM');
 	}
@@ -262,10 +262,10 @@ if ($n == 'transfer')
 	$t->assign(array(
 		'TRANSFER_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=transfer&a=add'),
 		'TRANSFER_FORM_SUMM' => cot_inputbox('text', 'summ', $summ),
-		'TRANSFER_FORM_TAX' => $taxsumm,
+		'TRANSFER_FORM_TAX' => (!empty($taxsumm)) ? $taxsumm : 0,
 		'TRANSFER_FORM_TOTAL' => (!empty($sendersumm)) ? $sendersumm : 0,
-		'TRANSFER_FORM_COMMENT' => $comment,
-		'TRANSFER_FORM_USERNAME' => $username,
+		'TRANSFER_FORM_COMMENT' => cot_textarea('comment', $comment, 10, 80),
+		'TRANSFER_FORM_USERNAME' => cot_inputbox('text', 'username', $username),
 	));
 	$t->parse('MAIN.TRANSFERFORM');
 }
