@@ -16,7 +16,7 @@
 	<li<!-- IF {PHP.n} == 'payouts' --> class="active"<!-- ENDIF -->><a href="{BALANCE_PAYOUT_URL}">{PHP.L.payments_payouts}</a></li>
 	<!-- ENDIF -->
 	<!-- IF {PHP.cfg.payments.transfers_enabled} -->
-	<li<!-- IF {PHP.n} == 'transfer' --> class="active"<!-- ENDIF -->><a href="{BALANCE_TRANSFER_URL}">{PHP.L.payments_transfer}</a></li>
+	<li<!-- IF {PHP.n} == 'transfers' --> class="active"<!-- ENDIF -->><a href="{BALANCE_TRANSFER_URL}">{PHP.L.payments_transfer}</a></li>
 	<!-- ENDIF -->
 	<!-- ENDIF -->
 </ul>		
@@ -111,6 +111,21 @@
 	<!-- ENDIF -->
 
 	<!-- END: PAYOUTFORM -->
+
+	<!-- BEGIN: TRANSFERS -->
+	<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=transfers&a=add')}">{PHP.L.payments_balance_transfers_button}</a>
+	<h5>{PHP.L.payments_balance_transfers_list}</h5>
+	<table class="table table-striped">
+		<!-- BEGIN: TRANSFER_ROW -->
+		<tr>
+			<td>{TRANSFER_ROW_ID}</td>
+			<td>{TRANSFER_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
+			<td class="text-right">{TRANSFER_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
+			<td><!-- IF {TRANSFER_ROW_DATE} > 0 -->{TRANSFER_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
+		</tr>
+		<!-- END: TRANSFER_ROW -->
+	</table>
+	<!-- END: TRANSFERS -->
 
 	<!-- BEGIN: TRANSFERFORM -->	
 	<h5>{PHP.L.payments_transfer}</h5>

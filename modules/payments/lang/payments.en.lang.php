@@ -111,6 +111,11 @@ Comment: %9$s
 ';
 
 $L['payments_transfer'] = 'Transfer for user';
+$L['payments_transfers'] = 'Transfers';
+$L['payments_balance_transfers_list'] = 'Transfers';
+$L['payments_balance_transfers_button'] = 'Add transfer';
+$L['payments_balance_transfers_from'] = ' From';
+$L['payments_balance_transfers_for'] = 'To';
 $L['payments_balance_transfer_desc'] = "Transfer from %1\$s to %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Comment";
 $L['payments_balance_transfer_summ'] = "Amount";

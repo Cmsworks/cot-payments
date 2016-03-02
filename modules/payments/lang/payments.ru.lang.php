@@ -111,6 +111,11 @@ $L['payments_balance_transfer_recipient_body'] = 'Здравствуйте, %2$s
 ';
 
 $L['payments_transfer'] = 'Перевод пользователю';
+$L['payments_transfers'] = 'Переводы';
+$L['payments_balance_transfers_list'] = 'Переводы';
+$L['payments_balance_transfers_button'] = 'Создать перевод';
+$L['payments_balance_transfers_from'] = 'От';
+$L['payments_balance_transfers_for'] = 'Для';
 $L['payments_balance_transfer_desc'] = "Перевод от %1\$s для %2\$s (%3\$s)";
 $L['payments_balance_transfer_comment'] = "Комментарий";
 $L['payments_balance_transfer_summ'] = "Укажите сумму";
