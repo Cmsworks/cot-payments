@@ -288,9 +288,24 @@ if ($n == 'transfers')
 
 if ($n == 'history')
 {
+	list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
+
+	$totallines = $db->query("SELECT COUNT(*) FROM $db_payments 
+		WHERE pay_userid=" . $usr['id'] . " AND pay_status='done' AND pay_summ>0")->fetchColumn();
 	$pays = $db->query("SELECT * FROM $db_payments 
 		WHERE pay_userid=" . $usr['id'] . " AND pay_status='done' AND pay_summ>0
-		ORDER BY pay_pdate DESC")->fetchAll();
+		ORDER BY pay_pdate DESC LIMIT $d, ".$cfg['maxrowsperpage'])->fetchAll();
+
+	$pagenav = cot_pagenav('payments', 'm=balance', $d, $totallines, $cfg['maxrowsperpage']);
+
+	$t->assign(array(
+		'HISTORY_COUNT' => $totallines,
+		'PAGENAV_PAGES' => $pagenav['main'],
+		'PAGENAV_PREV' => $pagenav['prev'],
+		'PAGENAV_NEXT' => $pagenav['next'],
+		'PAGENAV_CURRENTPAGE' => $pagenav['current'],
+	));
+
 	foreach ($pays as $pay)
 	{
 		$t->assign(cot_generate_paytags($pay, 'HIST_ROW_'));

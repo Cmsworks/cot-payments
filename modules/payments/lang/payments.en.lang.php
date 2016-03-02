@@ -31,6 +31,7 @@ $L['payments_mybalance'] = 'My balance';
 $L['payments_balance'] = 'Balance';
 $L['payments_paytobalance'] = 'To deposit';
 $L['payments_history'] = 'History';
+$L['payments_history_empty'] = 'History is empty';
 $L['payments_payouts'] = 'Payout';
 $L['payments_balance_payouts_button'] = 'New request';
 $L['payments_balance_payout_list'] = 'Requests';

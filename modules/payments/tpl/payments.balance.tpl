@@ -188,17 +188,33 @@
 
 	<!-- BEGIN: HISTORY -->
 	<h5>{PHP.L.payments_history}</h5>
+	<!-- IF {HISTORY_COUNT} > 0 -->
 	<table class="table table-striped">
-		<!-- BEGIN: HIST_ROW -->
-		<tr>
-			<td>{HIST_ROW_ID}</td>
-			<td><!-- IF {HIST_ROW_AREA} == 'balance' -->+<!-- ELSE -->-<!-- ENDIF --></td>
-			<td>{HIST_ROW_PDATE|cot_date('d.m.Y H:i', $this)}</td>
-			<td>{HIST_ROW_DESC}</td>
-			<td style="text-align: right;">{HIST_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
-		</tr>
-		<!-- END: HIST_ROW -->
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>-/+</th>
+				<th>{PHP.L.Date}</th>
+				<th>{PHP.L.Description}</th>
+				<th class="text-right">{PHP.L.payments_summ}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: HIST_ROW -->
+			<tr>
+				<td>{HIST_ROW_ID}</td>
+				<td><!-- IF {HIST_ROW_AREA} == 'balance' -->+<!-- ELSE -->-<!-- ENDIF --></td>
+				<td>{HIST_ROW_PDATE|cot_date('d.m.Y H:i', $this)}</td>
+				<td>{HIST_ROW_DESC}</td>
+				<td class="text-right">{HIST_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
+			</tr>
+			<!-- END: HIST_ROW -->
+		</tbody>
 	</table>
+	<div class="pagination">{PAGENAV_PREV}{PAGENAV_PAGES}{PAGENAV_NEXT}</div>
+	<!-- ELSE -->
+	<div class="alert alert-info">{PHP.L.payments_history_empty}</div>
+	<!-- ENDIF -->
 	<!-- END: HISTORY -->
 
 </div>

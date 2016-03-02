@@ -31,6 +31,7 @@ $L['payments_mybalance'] = 'Мой счет';
 $L['payments_balance'] = 'На счету';
 $L['payments_paytobalance'] = 'Пополнить счет';
 $L['payments_history'] = 'История операций';
+$L['payments_history_empty'] = 'Операций нет';
 $L['payments_payouts'] = 'Вывод со счета';
 $L['payments_balance_payouts_button'] = 'Новая заявка';
 $L['payments_balance_payout_list'] = 'Заявки на вывод средств со счета';
