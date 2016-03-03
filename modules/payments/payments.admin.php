@@ -46,6 +46,32 @@ if($p == 'payouts')
 		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
 	}
 
+	if($a == 'cancel' && isset($id)){
+
+		$payout = $db->query("SELECT * FROM $db_payments_outs AS o
+			LEFT JOIN $db_payments AS p ON p.pay_code=o.out_id AND p.pay_area='payout'
+			WHERE out_id=".$id)->fetch();
+
+		$rpayout['out_date'] = $sys['now'];
+		$rpayout['out_status'] = 'canceled';
+
+		if($db->update($db_payments_outs, $rpayout, "out_id=".$id))
+		{
+			$payinfo['pay_userid'] = $usr['id'];
+			$payinfo['pay_area'] = 'balance';
+			$payinfo['pay_code'] = $id;
+			$payinfo['pay_summ'] = $payout['pay_summ'];
+			$payinfo['pay_cdate'] = $sys['now'];
+			$payinfo['pay_pdate'] = $sys['now'];
+			$payinfo['pay_adate'] = $sys['now'];
+			$payinfo['pay_status'] = 'done';
+			$payinfo['pay_desc'] = $L['payments_balance_payout_cancel_desc'];
+
+			$db->insert($db_payments, $payinfo);
+		}
+		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
+	}
+
 	$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
 		LEFT JOIN $db_users AS u ON u.user_id=o.out_userid
 		WHERE 1
@@ -57,7 +83,9 @@ if($p == 'payouts')
 			'PAYOUT_ROW_STATUS_ID' => $payout['out_status'],
 			'PAYOUT_ROW_SUMM' => $payout['out_summ'],
 			'PAYOUT_ROW_DETAILS' => $payout['out_details'],
+			'PAYOUT_ROW_STATUS' => $L['payments_balance_payout_status_'.$payout['out_status']],
 			'PAYOUT_ROW_DONE_URL' => cot_url('admin', 'm=payments&p=payouts&a=done&id='.$payout['out_id']),
+			'PAYOUT_ROW_CANCEL_URL' => cot_url('admin', 'm=payments&p=payouts&a=cancel&id='.$payout['out_id']),
 		));
 		$t->assign(cot_generate_usertags($payout, 'PAYOUT_ROW_USER_'));
 		$t->parse('MAIN.PAYOUTS.PAYOUT_ROW');

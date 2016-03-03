@@ -39,6 +39,7 @@ $L['payments_balance_payouts_button'] = 'Новая заявка';
 $L['payments_balance_payout_list'] = 'Заявки на вывод средств со счета';
 $L['payments_balance_payout_title'] = 'Заявка на вывод со счета';
 $L['payments_balance_payout_desc'] = 'Вывод со счета по заявке';
+$L['payments_balance_payout_cancel_desc'] = 'Отмена заявки на вывод';
 $L['payments_balance_payout_summ'] = 'Укажите сумму';
 $L['payments_balance_payout_tax'] = "Комиссия";
 $L['payments_balance_payout_total'] = "Сумма к списанию";
@@ -49,6 +50,10 @@ $L['payments_balance_payout_error_wrongsumm'] = 'Сумма не может бы
 $L['payments_balance_payout_error_balance'] = 'Указанная сумма превышает баланс вашего счета';
 $L['payments_balance_payout_error_min'] = 'Сумма для вывода не должна быть меньше %1$s %2$s';
 $L['payments_balance_payout_error_max'] = 'Сумма для вывода не должна быть больше %1$s %2$s';
+
+$L['payments_balance_payout_status_process'] = 'Обрабатывается';
+$L['payments_balance_payout_status_done'] = 'Обработана';
+$L['payments_balance_payout_status_canceled'] = 'Отменена';
 
 $L['payments_balance_billing_desc'] = 'Пополнение счета';
 $L['payments_balance_billing_summ'] = 'Укажите сумму';

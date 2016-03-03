@@ -39,6 +39,7 @@ $L['payments_balance_payouts_button'] = 'New request';
 $L['payments_balance_payout_list'] = 'Requests';
 $L['payments_balance_payout_title'] = 'Payout request';
 $L['payments_balance_payout_desc'] = 'Payout';
+$L['payments_balance_payout_cancel_desc'] = 'Canceled payout';
 $L['payments_balance_payout_summ'] = 'Amount';
 $L['payments_balance_payout_tax'] = "Commission";
 $L['payments_balance_payout_total'] = "Amount to be deducted";
@@ -49,6 +50,10 @@ $L['payments_balance_payout_error_wrongsumm'] = 'The amount can not be negative'
 $L['payments_balance_payout_error_balance'] = 'A very large amount';
 $L['payments_balance_payout_error_min'] = 'Amount shall not be less than %1$s %2$s';
 $L['payments_balance_payout_error_max'] = 'Amount should not be more %1$s %2$s';
+
+$L['payments_balance_payout_status_process'] = 'Process';
+$L['payments_balance_payout_status_done'] = 'Done';
+$L['payments_balance_payout_status_canceled'] = 'Canceled';
 
 $L['payments_balance_billing_desc'] = 'Account funding';
 $L['payments_balance_billing_summ'] = 'Enter the amount';

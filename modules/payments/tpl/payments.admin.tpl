@@ -64,7 +64,8 @@
 		<th class="span2">{PHP.L.payments_summ}</th>
 		<th>{PHP.L.payments_balance_payout_details}</th>
 		<th>{PHP.L.Date}</th>
-		<th></th>
+		<th>{PHP.L.Status}</th>
+		<th>{PHP.L.Action}</th>
 	</tr>
 </thead>	
 <!-- BEGIN: PAYOUT_ROW -->
@@ -73,9 +74,11 @@
 		<td>{PAYOUT_ROW_SUMM}</td>
 		<td>{PAYOUT_ROW_DETAILS}</td>
 		<td><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i',$this)}<!-- ELSE -->&mdash;<!-- ENDIF --></td>
+		<td>{PAYOUT_ROW_STATUS}</td>
 		<td>
 			<!-- IF {PAYOUT_ROW_STATUS_ID} == 'process' -->
-			<a href="{PAYOUT_ROW_DONE_URL}">{PHP.L.Confirm}</a>
+			<a href="{PAYOUT_ROW_DONE_URL}">{PHP.L.Confirm}</a> 
+			<a href="{PAYOUT_ROW_CANCEL_URL}">{PHP.L.Cancel}</a>
 			<!-- ENDIF -->
 		</td>
 	</tr>
