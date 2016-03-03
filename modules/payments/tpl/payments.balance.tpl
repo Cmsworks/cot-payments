@@ -46,12 +46,22 @@
 	<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=payouts&a=add')}">{PHP.L.payments_balance_payouts_button}</a>
 	<h5>{PHP.L.payments_balance_payout_list}</h5>
 	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th class="text-right">{PHP.L.payments_summ}</th>
+				<th class="text-right">{PHP.L.Date}</th>
+				<th class="text-right">{PHP.L.Done}</th>
+				<th class="text-right">{PHP.L.Status}</th>
+			</tr>
+		</thead>
 		<!-- BEGIN: PAYOUT_ROW -->
 		<tr>
 			<td>{PAYOUT_ROW_ID}</td>
-			<td>{PAYOUT_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
-			<td style="text-align: right;">{PAYOUT_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
-			<td><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
+			<td class="text-right">{PAYOUT_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
+			<td class="text-right">{PAYOUT_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
+			<td class="text-right"><!-- IF {PAYOUT_ROW_DATE} > 0 -->{PAYOUT_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
+			<td class="text-right">{PAYOUT_ROW_LOCALSTATUS}</td>
 		</tr>
 		<!-- END: PAYOUT_ROW -->
 	</table>
@@ -116,12 +126,26 @@
 	<a class="pull-right btn btn-success" href="{PHP|cot_url('payments', 'm=balance&n=transfers&a=add')}">{PHP.L.payments_balance_transfers_button}</a>
 	<h5>{PHP.L.payments_balance_transfers_list}</h5>
 	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>{PHP.L.payments_balance_transfers_for}</th>
+				<th class="text-right">{PHP.L.payments_summ}</th>
+				<th>{PHP.L.Description}</th>
+				<th class="text-right">{PHP.L.Date}</th>
+				<th class="text-right">{PHP.L.Done}</th>
+				<th class="text-right">{PHP.L.Status}</th>
+			</tr>
+		</thead>
 		<!-- BEGIN: TRANSFER_ROW -->
 		<tr>
 			<td>{TRANSFER_ROW_ID}</td>
-			<td>{TRANSFER_ROW_CDATE|cot_date('d.m.Y H:i', $this)}</td>
+			<td><a href="{TRANSFER_ROW_FOR_DETAILSLINK}">{TRANSFER_ROW_FOR_FULL_NAME}</a></td>
 			<td class="text-right">{TRANSFER_ROW_SUMM|number_format($this, '2', '.', ' ')} {PHP.cfg.payments.valuta}</td>
-			<td><!-- IF {TRANSFER_ROW_DATE} > 0 -->{TRANSFER_ROW_DATE|cot_date('d.m.Y H:i', $this)}<!-- ELSE -->{PHP.L.No}<!-- ENDIF --></td>
+			<td>{TRANSFER_ROW_COMMENT}</td>
+			<td class="text-right">{TRANSFER_ROW_DATE|cot_date('d.m.Y H:i', $this)}</td>
+			<td class="text-right">{TRANSFER_ROW_DONE|cot_date('d.m.Y H:i', $this)}</td>
+			<td class="text-right">{TRANSFER_ROW_LOCALSTATUS}</td>
 		</tr>
 		<!-- END: TRANSFER_ROW -->
 	</table>

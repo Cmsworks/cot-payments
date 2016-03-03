@@ -155,6 +155,8 @@ if ($n == 'payouts')
 					'PAYOUT_ROW_SUMM' => $payout['out_summ'],
 					'PAYOUT_ROW_CDATE' => $payout['pay_cdate'],
 					'PAYOUT_ROW_DATE' => $payout['out_date'],
+					'PAYOUT_ROW_STATUS' => $payout['out_status'],
+					'PAYOUT_ROW_LOCALSTATUS' => $L['payments_balance_payout_status_'.$payout['out_status']],
 				));
 				$t->parse('MAIN.PAYOUTS.PAYOUT_ROW');
 			}
@@ -261,9 +263,13 @@ if ($n == 'transfers')
 				$t->assign(array(
 					'TRANSFER_ROW_ID' => $transfer['trn_id'],
 					'TRANSFER_ROW_SUMM' => $transfer['trn_summ'],
-					'TRANSFER_ROW_CDATE' => $transfer['pay_cdate'],
 					'TRANSFER_ROW_DATE' => $transfer['trn_date'],
+					'TRANSFER_ROW_DONE' => $transfer['trn_done'],
+					'TRANSFER_ROW_COMMENT' => $transfer['trn_comment'],
+					'TRANSFER_ROW_STATUS' => $transfer['trn_status'],
+					'TRANSFER_ROW_LOCALSTATUS' => $L['payments_balance_transfer_status_'.$transfer['trn_status']],
 				));
+				$t->assign(cot_generate_usertags($transfer['trn_to'], 'TRANSFER_ROW_FOR_'));
 				$t->parse('MAIN.TRANSFERS.TRANSFER_ROW');
 			}
 		}
