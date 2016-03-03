@@ -37,7 +37,7 @@ if($p == 'payouts')
 	if($a == 'done' && isset($id)){
 
 		$payout = $db->query("SELECT * FROM $db_payments_outs
-			WHERE out_id=".$id)->fetch();
+			WHERE out_status='process' AND out_id=".$id)->fetch();
 
 		$rpayout['out_date'] = $sys['now'];
 		$rpayout['out_status'] = 'done';
@@ -51,7 +51,7 @@ if($p == 'payouts')
 		$payout = $db->query("SELECT * FROM $db_payments_outs AS o 
 			LEFT JOIN $db_users AS u ON u.user_id=o.out_userid
 			LEFT JOIN $db_payments AS p ON p.pay_code=o.out_id AND p.pay_area='payout'
-			WHERE out_id=".$id)->fetch();
+			WHERE out_status='process' AND out_id=".$id)->fetch();
 
 		$rpayout['out_date'] = $sys['now'];
 		$rpayout['out_status'] = 'canceled';
@@ -105,7 +105,7 @@ elseif($p == 'transfers')
 
 		$transfer = $db->query("SELECT * FROM $db_payments_transfers AS t
 			LEFT JOIN $db_users AS u ON u.user_id=t.trn_from
-			WHERE trn_id=".$id)->fetch();
+			WHERE trn_status='process' AND trn_id=".$id)->fetch();
 
 		$rtransfer['trn_done'] = $sys['now'];
 		$rtransfer['trn_status'] = 'done';
@@ -156,7 +156,7 @@ elseif($p == 'transfers')
 		$transfer = $db->query("SELECT * FROM $db_payments_transfers AS t
 			LEFT JOIN $db_users AS u ON u.user_id=t.trn_from
 			LEFT JOIN $db_payments AS p ON p.pay_code=t.trn_id AND p.pay_area='transfer'
-			WHERE trn_id=".$id)->fetch();
+			WHERE trn_status='process' AND trn_id=".$id)->fetch();
 
 		$rtransfer['trn_done'] = $sys['now'];
 		$rtransfer['trn_status'] = 'canceled';
