@@ -48,7 +48,8 @@ if($p == 'payouts')
 
 	if($a == 'cancel' && isset($id)){
 
-		$payout = $db->query("SELECT * FROM $db_payments_outs AS o
+		$payout = $db->query("SELECT * FROM $db_payments_outs AS o 
+			LEFT JOIN $db_users AS u ON u.user_id=o.out_userid
 			LEFT JOIN $db_payments AS p ON p.pay_code=o.out_id AND p.pay_area='payout'
 			WHERE out_id=".$id)->fetch();
 
@@ -68,6 +69,11 @@ if($p == 'payouts')
 			$payinfo['pay_desc'] = $L['payments_balance_payout_cancel_desc'];
 
 			$db->insert($db_payments, $payinfo);
+
+			// Отправка уведомления об отмене заявки
+			$subject = $L['payments_balance_payout_cancel_subject'];
+			$body = sprintf($L['payments_balance_payout_cancel_body'], $payout['user_name'], $id);
+			cot_mail($payout['user_email'], $subject, $body);
 		}
 		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
 	}
@@ -148,6 +154,7 @@ elseif($p == 'transfers')
 	if($a == 'cancel' && isset($id)){
 
 		$transfer = $db->query("SELECT * FROM $db_payments_transfers AS t
+			LEFT JOIN $db_users AS u ON u.user_id=t.trn_from
 			LEFT JOIN $db_payments AS p ON p.pay_code=t.trn_id AND p.pay_area='transfer'
 			WHERE trn_id=".$id)->fetch();
 
@@ -167,6 +174,11 @@ elseif($p == 'transfers')
 			$payinfo['pay_desc'] = sprintf($L['payments_balance_transfer_cancel_desc'], $id);
 
 			$db->insert($db_payments, $payinfo);
+
+			// Отправка уведомления об отмене перевода
+			$subject = $L['payments_balance_transfer_cancel_subject'];
+			$body = sprintf($L['payments_balance_transfer_cancel_body'], $transfer['user_name'], $id);
+			cot_mail($transfer['user_email'], $subject, $body);
 		}
 		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
 	}

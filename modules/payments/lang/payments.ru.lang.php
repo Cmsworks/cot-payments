@@ -87,6 +87,11 @@ $L['payments_balance_payout_admin_body'] = 'Здравствуйте,
 
 ';
 
+$L['payments_balance_payout_cancel_subject'] = 'Заявка на вывод отменена';
+$L['payments_balance_payout_cancel_body'] = 'Здравствуйте, %1$s
+
+Заявка на вывод денег со счета №%2$s была отменена. Для уточнения причины свяжитесь с администрацией.';
+
 $L['payments_balance_transfer_admin_subject'] = 'Перевод пользователю';
 $L['payments_balance_transfer_admin_body'] = 'Здравствуйте,
 
@@ -117,6 +122,11 @@ $L['payments_balance_transfer_recipient_body'] = 'Здравствуйте, %2$s
 Комментарий: %9$s
 
 ';
+
+$L['payments_balance_transfer_cancel_subject'] = 'Перевод отменен';
+$L['payments_balance_transfer_cancel_body'] = 'Здравствуйте, %1$s
+
+Перевод №%2$s был отменен. Для уточнения причины свяжитесь с администрацией.';
 
 $L['payments_transfer'] = 'Перевод пользователю';
 $L['payments_transfers'] = 'Переводы';

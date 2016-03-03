@@ -87,6 +87,11 @@ Details: %5$s.
 
 ';
 
+$L['payments_balance_payout_cancel_subject'] = 'Payout canceled';
+$L['payments_balance_payout_cancel_body'] = 'Hi, %1$s
+
+The request of money from the account #%2$s has been canceled. To clarify the reasons for contact with the administration.';
+
 $L['payments_balance_transfer_admin_subject'] = 'Transfer for user';
 $L['payments_balance_transfer_admin_body'] = 'Hi,
 
@@ -117,6 +122,11 @@ Date: %8$s
 Comment: %9$s
 
 ';
+
+$L['payments_balance_transfer_cancel_subject'] = 'Transfer canceled';
+$L['payments_balance_transfer_cancel_body'] = 'Hi, %1$s
+
+Transfer №%2$ s has been canceled. To clarify the reasons for contact with the administration.';
 
 $L['payments_transfer'] = 'Transfer for user';
 $L['payments_transfers'] = 'Transfers';
