@@ -125,6 +125,7 @@ $L['payments_balance_transfers_button'] = 'Создать перевод';
 $L['payments_balance_transfers_from'] = 'От';
 $L['payments_balance_transfers_for'] = 'Для';
 $L['payments_balance_transfer_desc'] = "Перевод от %1\$s для %2\$s (%3\$s)";
+$L['payments_balance_transfer_cancel_desc'] = "Отмена заявки на перевод №%1\$s";
 $L['payments_balance_transfer_comment'] = "Комментарий";
 $L['payments_balance_transfer_summ'] = "Укажите сумму";
 $L['payments_balance_transfer_tax'] = "Комиссия";
@@ -138,6 +139,10 @@ $L['payments_balance_transfer_error_balance'] = 'Сумма превышает �
 $L['payments_balance_transfer_error_comment'] = 'Не указаны комментарии к переводу';
 $L['payments_balance_transfer_error_min'] = 'Сумма для перевода не должна быть меньше %1$s %2$s';
 $L['payments_balance_transfer_error_max'] = 'Сумма для перевода не должна быть больше %1$s %2$s';
+
+$L['payments_balance_transfer_status_process'] = 'Обрабатывается';
+$L['payments_balance_transfer_status_done'] = 'Обработана';
+$L['payments_balance_transfer_status_canceled'] = 'Отменена';
 
 $L['payments_billing_title'] = 'Способы оплаты';
 $L['payments_emptybillings'] = 'На данный момент способы оплаты недоступны. Пожалуйста, попробуйте выполнить оплату позже.';

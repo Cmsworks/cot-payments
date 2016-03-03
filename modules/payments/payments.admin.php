@@ -57,7 +57,7 @@ if($p == 'payouts')
 
 		if($db->update($db_payments_outs, $rpayout, "out_id=".$id))
 		{
-			$payinfo['pay_userid'] = $usr['id'];
+			$payinfo['pay_userid'] = $payout['out_userid'];
 			$payinfo['pay_area'] = 'balance';
 			$payinfo['pay_code'] = $id;
 			$payinfo['pay_summ'] = $payout['pay_summ'];
@@ -80,10 +80,10 @@ if($p == 'payouts')
 	foreach($payouts as $payout){
 		$t->assign(array(
 			'PAYOUT_ROW_DATE' => $payout['out_date'],
-			'PAYOUT_ROW_STATUS_ID' => $payout['out_status'],
 			'PAYOUT_ROW_SUMM' => $payout['out_summ'],
 			'PAYOUT_ROW_DETAILS' => $payout['out_details'],
-			'PAYOUT_ROW_STATUS' => $L['payments_balance_payout_status_'.$payout['out_status']],
+			'PAYOUT_ROW_STATUS' => $payout['out_status'],
+			'PAYOUT_ROW_LOCALSTATUS' => $L['payments_balance_payout_status_'.$payout['out_status']],
 			'PAYOUT_ROW_DONE_URL' => cot_url('admin', 'm=payments&p=payouts&a=done&id='.$payout['out_id']),
 			'PAYOUT_ROW_CANCEL_URL' => cot_url('admin', 'm=payments&p=payouts&a=cancel&id='.$payout['out_id']),
 		));
@@ -145,6 +145,32 @@ elseif($p == 'transfers')
 		cot_redirect(cot_url('admin', 'm=payments&p=transfers'));
 	}
 
+	if($a == 'cancel' && isset($id)){
+
+		$transfer = $db->query("SELECT * FROM $db_payments_transfers AS t
+			LEFT JOIN $db_payments AS p ON p.pay_code=t.trn_id AND p.pay_area='transfer'
+			WHERE trn_id=".$id)->fetch();
+
+		$rtransfer['trn_done'] = $sys['now'];
+		$rtransfer['trn_status'] = 'canceled';
+
+		if($db->update($db_payments_transfers, $rtransfer, "trn_id=".$id))
+		{
+			$payinfo['pay_userid'] = $transfer['trn_from'];
+			$payinfo['pay_area'] = 'balance';
+			$payinfo['pay_code'] = $id;
+			$payinfo['pay_summ'] = $transfer['pay_summ'];
+			$payinfo['pay_cdate'] = $sys['now'];
+			$payinfo['pay_pdate'] = $sys['now'];
+			$payinfo['pay_adate'] = $sys['now'];
+			$payinfo['pay_status'] = 'done';
+			$payinfo['pay_desc'] = sprintf($L['payments_balance_transfer_cancel_desc'], $id);
+
+			$db->insert($db_payments, $payinfo);
+		}
+		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
+	}
+
 	$transfers = $db->query("SELECT * FROM $db_payments_transfers AS t
 		LEFT JOIN $db_payments AS p ON p.pay_code=t.trn_id AND p.pay_area='transfer'
 		WHERE 1
@@ -160,7 +186,9 @@ elseif($p == 'transfers')
 				'TRANSFER_ROW_DATE' => $transfer['trn_date'],
 				'TRANSFER_ROW_DONE' => $transfer['trn_done'],
 				'TRANSFER_ROW_STATUS' => $transfer['trn_status'],
+				'TRANSFER_ROW_LOCALSTATUS' => $L['payments_balance_payout_status_'.$transfer['trn_status']],
 				'TRANSFER_ROW_DONE_URL' => cot_url('admin', 'm=payments&p=transfers&a=done&id='.$transfer['trn_id']),
+				'TRANSFER_ROW_CANCEL_URL' => cot_url('admin', 'm=payments&p=transfers&a=cancel&id='.$transfer['trn_id']),
 			));
 			$t->assign(cot_generate_usertags($transfer['trn_from'], 'TRANSFER_ROW_FROM_'));
 			$t->assign(cot_generate_usertags($transfer['trn_to'], 'TRANSFER_ROW_FOR_'));
