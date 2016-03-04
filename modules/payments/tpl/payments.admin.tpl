@@ -8,6 +8,12 @@
 		<a href="{PHP|cot_url('admin', 'm=payments&p=payouts')}" class="button btn<!-- IF {PHP.p} == 'payouts' --> btn-success special<!-- ENDIF -->">{PHP.L.payments_payouts}</a>
 		<a href="{PHP|cot_url('admin', 'm=payments&p=transfers')}" class="button btn<!-- IF {PHP.p} == 'transfers' --> btn-success special<!-- ENDIF -->">{PHP.L.payments_transfers}</a>
 	</div>
+	<form action="{PHP.p|cot_url('admin', 'm=payments&p='$this)}" method="post" class="form-inline">
+		<div class="form-group">
+			<input type="text" class="form-control" name="sq" value="{PHP.sq}">
+			<button type="submit" class="btn btn-default">{PHP.L.Search}</button>
+		</div>
+	</form>
 </div>
 
 <!-- BEGIN: PAYMENTS -->

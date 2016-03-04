@@ -21,6 +21,8 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('payment
 cot_block($usr['isadmin']);
 
 $p = cot_import('p', 'G', 'ALP');
+$sq = cot_import('sq', 'P', 'TXT');
+$sq = $db->prep($sq);
 
 $t = new XTemplate(cot_tplfile('payments.admin', 'module', true));
 
@@ -78,9 +80,19 @@ if($p == 'payouts')
 		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
 	}
 
+	$where = array();
+
+	if (!empty($sq))
+	{
+		$where['search'] = "(u.user_name LIKE '%".$db->prep($sq)."%' OR u.user_email LIKE '%".$db->prep($sq)."%')";
+	}
+
+	$where = array_filter($where);
+	$where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+
 	$payouts = $db->query("SELECT * FROM $db_payments_outs AS o
 		LEFT JOIN $db_users AS u ON u.user_id=o.out_userid
-		WHERE 1
+		$where
 		ORDER BY o.out_id DESC")->fetchAll();
 
 	foreach($payouts as $payout){
@@ -183,10 +195,22 @@ elseif($p == 'transfers')
 		cot_redirect(cot_url('admin', 'm=payments&p=payouts'));
 	}
 
+	$where = array();
+
+	if (!empty($sq))
+	{
+		$where['search'] = "(u.user_name LIKE '%".$db->prep($sq)."%' OR u.user_email LIKE '%".$db->prep($sq)."%')";
+	}
+
+	$where = array_filter($where);
+	$where = ($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+
 	$transfers = $db->query("SELECT * FROM $db_payments_transfers AS t
+		LEFT JOIN $db_users AS u ON u.user_id=t.trn_from
 		LEFT JOIN $db_payments AS p ON p.pay_code=t.trn_id AND p.pay_area='transfer'
-		WHERE 1
+		$where
 		ORDER BY pay_cdate DESC")->fetchAll();
+
 	if(count($transfers) > 0)
 	{
 		foreach ($transfers as $transfer)
@@ -220,6 +244,11 @@ else
 	$where['status'] = "pay_status='done'";
 	$where['summ'] = 'pay_summ>0';
 
+	if (!empty($sq))
+	{
+		$where['search'] = "(u.user_name LIKE '%".$db->prep($sq)."%' OR u.user_email LIKE '%".$db->prep($sq)."%')";
+	}
+
 	if(isset($id))
 	{
 		$where['userid'] = 'pay_userid=' . $id;
@@ -235,9 +264,11 @@ else
 		$where 
 		ORDER BY pay_pdate DESC, pay_id DESC LIMIT $d, " . $cfg['maxrowsperpage'])->fetchAll();
 
-	$totalitems = $db->query("SELECT COUNT(*) FROM $db_payments $where")->fetchColumn();
+	$totalitems = $db->query("SELECT COUNT(*) FROM $db_payments AS p
+		LEFT JOIN $db_users AS u ON u.user_id=p.pay_userid 
+		$where")->fetchColumn();
 
-	$pagenav = cot_pagenav('admin', 'm=payments&id='.$id, $d, $totalitems, $cfg['maxrowsperpage']);
+	$pagenav = cot_pagenav('admin', 'm=payments&id='.$id.'&sq='.$sq, $d, $totalitems, $cfg['maxrowsperpage']);
 
 	$t->assign(array(
 		'PAGENAV_PAGES' => $pagenav['main'],
