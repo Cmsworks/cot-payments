@@ -25,7 +25,21 @@ if (empty($n))
 	$n = 'history';
 }
 
+/* === Hook === */
+foreach (cot_getextplugins('payments.balance.first') as $pl)
+{
+	include $pl;
+}
+/* ===== */
+
 $t = new XTemplate(cot_tplfile('payments.balance', 'module'));
+
+/* === Hook === */
+foreach (cot_getextplugins('payments.balance.main') as $pl)
+{
+	include $pl;
+}
+/* ===== */
 
 $t->assign(array(
 	'BALANCE_SUMM' => cot_payments_getuserbalance($usr['id']),
@@ -40,17 +54,46 @@ if ($n == 'billing')
 
 	$pid = cot_import('pid', 'G', 'INT');
 
+	/* === Hook === */
+	foreach (cot_getextplugins('payments.balance.billing.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if ($a == 'buy')
 	{
 
 		$summ = cot_import('summ', 'P', 'NUM');
+
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.billing.import') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		cot_check(empty($summ), 'payments_balance_billing_error_emptysumm');
 		cot_check(!empty($summ) && $summ < 0, 'payments_balance_billing_error_wrongsumm');
+
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.billing.validate') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
 
 		if (!cot_error_found())
 		{
 			$options['desc'] = $L['payments_balance_billing_desc'];
 			$options['code'] = $pid;
+
+			/* === Hook === */
+			foreach (cot_getextplugins('payments.balance.billing.options') as $pl)
+			{
+				include $pl;
+			}
+			/* ===== */
 
 			cot_payments_create_order('balance', $summ, $options);
 		}
@@ -64,13 +107,21 @@ if ($n == 'billing')
 		'BALANCE_FORM_ACTION_URL' => cot_url('payments', 'm=balance&n=billing&a=buy&pid=' . $pid),
 		'BALANCE_FORM_SUMM' => cot_inputbox('text', 'summ', $rsumm),
 	));
+
+	/* === Hook === */
+	foreach (cot_getextplugins('payments.balance.billing.tags') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	$t->parse('MAIN.BILLINGFORM');
 }
 
 if ($n == 'payouts')
 {
 	cot_block($cfg['payments']['payouts_enabled']);
-	
+
 	$payouttax_array = explode('|', $cfg['payments']['payouttax']);
 	if(is_array($payouttax_array)){
 		foreach ($payouttax_array as $j => $potaxs){
@@ -87,6 +138,13 @@ if ($n == 'payouts')
 			$cfg['payments']['payouttax'] = $payouttax_array[0];
 		}
 	}
+	
+	/* === Hook === */
+	foreach (cot_getextplugins('payments.balance.payouts.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
 
 	if ($a == 'send')
 	{
@@ -96,6 +154,13 @@ if ($n == 'payouts')
 		
 		$total = $summ + $summ*$cfg['payments']['payouttax']/100;
 		
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.payouts.import') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		$ubalance = cot_payments_getuserbalance($usr['id']);
 			
 		cot_check(empty($details), 'payments_balance_payout_error_details');
@@ -105,12 +170,26 @@ if ($n == 'payouts')
 		cot_check($cfg['payments']['payoutmin'] > 0 && $summ < $cfg['payments']['payoutmin'], sprintf($L['payments_balance_payout_error_min'], $cfg['payments']['payoutmin'], $cfg['payments']['valuta']));	
 		cot_check($cfg['payments']['payoutmax'] > 0 && $summ > $cfg['payments']['payoutmax'], sprintf($L['payments_balance_payout_error_max'], $cfg['payments']['payoutmax'], $cfg['payments']['valuta']));	
 
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.payouts.validate') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		if(!cot_error_found())
 		{
 			$rpayout['out_userid'] = $usr['id'];
 			$rpayout['out_summ'] = $summ;
 			$rpayout['out_details'] = $details;
 			$rpayout['out_status'] = 'process';
+
+			/* === Hook === */
+			foreach (cot_getextplugins('payments.balance.payouts.options') as $pl)
+			{
+				include $pl;
+			}
+			/* ===== */
 
 			if($db->insert($db_payments_outs, $rpayout)){
 				$oid = $db->lastInsertId();
@@ -129,11 +208,18 @@ if ($n == 'payouts')
 				$pid = $db->lastInsertId();
 
 				cot_payments_updateuserbalance($usr['id'], -$total, $pid);
-				
+
 				// Отправка уведомления админу о новой заявке на вывод
 				$subject = $L['payments_balance_payout_admin_subject'];
 				$body = sprintf($L['payments_balance_payout_admin_body'], $usr['name'], $summ.' '.$cfg['payments']['valuta'], $oid, cot_date('d.m.Y в H:i', $sys['now']), $details);
 				cot_mail($cfg['adminemail'], $subject, $body);
+				
+				/* === Hook === */
+				foreach (cot_getextplugins('payments.balance.payouts.done') as $pl)
+				{
+					include $pl;
+				}
+				/* ===== */
 			}
 			cot_redirect(cot_url('payments', 'm=balance&n=history', '', true));
 		}
@@ -148,6 +234,10 @@ if ($n == 'payouts')
 			ORDER BY pay_cdate DESC")->fetchAll();
 		if(count($payouts) > 0)
 		{
+			/* === Hook === */
+			$extp = cot_getextplugins('payments.balance.payouts.loop');
+			/* ===== */
+
 			foreach ($payouts as $payout)
 			{
 				$t->assign(array(
@@ -158,6 +248,14 @@ if ($n == 'payouts')
 					'PAYOUT_ROW_STATUS' => $payout['out_status'],
 					'PAYOUT_ROW_LOCALSTATUS' => $L['payments_balance_payout_status_'.$payout['out_status']],
 				));
+
+				/* === Hook - Part2 : Include === */
+				foreach ($extp as $pl)
+				{
+					include $pl;
+				}
+				/* ===== */
+				
 				$t->parse('MAIN.PAYOUTS.PAYOUT_ROW');
 			}
 		}
@@ -174,6 +272,14 @@ if ($n == 'payouts')
 			'PAYOUT_FORM_TOTAL' => (!empty($total)) ? $total : 0,
 			'PAYOUT_FORM_DETAILS' => cot_textarea('details', $details, 10, 80),
 		));
+
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.payouts.form') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		$t->parse('MAIN.PAYOUTFORM');
 	}
 }
@@ -182,6 +288,13 @@ if ($n == 'transfers')
 {
 	cot_block($cfg['payments']['transfers_enabled']);
 	
+	/* === Hook === */
+	foreach (cot_getextplugins('payments.balance.transfers.first') as $pl)
+	{
+		include $pl;
+	}
+	/* ===== */
+
 	if ($a == 'send')
 	{
 
@@ -191,6 +304,13 @@ if ($n == 'transfers')
 		
 		$taxsumm = $summ*$cfg['payments']['transfertax']/100;
 		
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.transfers.import') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		if($cfg['payments']['transfertaxfromrecipient'])
 		{
 			$sendersumm = $summ;
@@ -213,6 +333,13 @@ if ($n == 'transfers')
 		cot_check($cfg['payments']['transfermax'] > 0 && $summ > $cfg['payments']['transfermax'], sprintf($L['payments_balance_transfer_error_max'], $cfg['payments']['transfermax'], $cfg['payments']['valuta']), 'summ');
 		cot_check(empty($comment), 'payments_balance_transfer_error_comment', 'comment');
 
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.transfers.validate') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		if(!cot_error_found())
 		{
 			$rtransfer['trn_from'] = $usr['id'];
@@ -221,6 +348,13 @@ if ($n == 'transfers')
 			$rtransfer['trn_comment'] = $comment;
 			$rtransfer['trn_status'] = 'process';
 			$rtransfer['trn_date'] = $sys['now'];
+
+			/* === Hook === */
+			foreach (cot_getextplugins('payments.balance.transfers.options') as $pl)
+			{
+				include $pl;
+			}
+			/* ===== */
 
 			if($db->insert($db_payments_transfers, $rtransfer)){
 				$tid = $db->lastInsertId();
@@ -243,6 +377,14 @@ if ($n == 'transfers')
 				$subject = $L['payments_balance_transfer_admin_subject'];
 				$body = sprintf($L['payments_balance_transfer_admin_body'], $usr['name'], $recipient['user_name'], $summ, $taxsumm, $sendersumm, $recipientsumm, $cfg['payments']['valuta'], cot_date('d.m.Y в H:i', $sys['now']), $comment);
 				cot_mail($cfg['adminemail'], $subject, $body);
+				
+				/* === Hook === */
+				foreach (cot_getextplugins('payments.balance.transfers.done') as $pl)
+				{
+					include $pl;
+				}
+				/* ===== */
+
 			}
 			
 			cot_redirect(cot_url('payments', 'm=balance&n=history', '', true));
@@ -258,6 +400,10 @@ if ($n == 'transfers')
 			ORDER BY pay_cdate DESC")->fetchAll();
 		if(count($transfers) > 0)
 		{
+			/* === Hook === */
+			$extp = cot_getextplugins('payments.balance.transfers.loop');
+			/* ===== */
+
 			foreach ($transfers as $transfer)
 			{
 				$t->assign(array(
@@ -270,6 +416,14 @@ if ($n == 'transfers')
 					'TRANSFER_ROW_LOCALSTATUS' => $L['payments_balance_transfer_status_'.$transfer['trn_status']],
 				));
 				$t->assign(cot_generate_usertags($transfer['trn_to'], 'TRANSFER_ROW_FOR_'));
+
+				/* === Hook - Part2 : Include === */
+				foreach ($extp as $pl)
+				{
+					include $pl;
+				}
+				/* ===== */
+
 				$t->parse('MAIN.TRANSFERS.TRANSFER_ROW');
 			}
 		}
@@ -286,6 +440,13 @@ if ($n == 'transfers')
 			'TRANSFER_FORM_USERNAME' => cot_inputbox('text', 'username', $username),
 		));
 		
+		/* === Hook === */
+		foreach (cot_getextplugins('payments.balance.transfers.form') as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		cot_display_messages($t, 'MAIN.TRANSFERFORM');
 
 		$t->parse('MAIN.TRANSFERFORM');
@@ -312,13 +473,32 @@ if ($n == 'history')
 		'PAGENAV_CURRENTPAGE' => $pagenav['current'],
 	));
 
+	/* === Hook === */
+	$extp = cot_getextplugins('payments.balance.history.loop');
+	/* ===== */
+
 	foreach ($pays as $pay)
 	{
 		$t->assign(cot_generate_paytags($pay, 'HIST_ROW_'));
+
+		/* === Hook - Part2 : Include === */
+		foreach ($extp as $pl)
+		{
+			include $pl;
+		}
+		/* ===== */
+
 		$t->parse('MAIN.HISTORY.HIST_ROW');
 	}
 	$t->parse('MAIN.HISTORY');
 }
+
+/* === Hook === */
+foreach (cot_getextplugins('payments.balance.tags') as $pl)
+{
+	include $pl;
+}
+/* ===== */
 
 $t->parse('MAIN');
 $module_body = $t->text('MAIN');
